@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>ANG HR Plus Employee</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app">
+    <section class="hero">
+      <h1>員工功能</h1>
+      <p>Plus｜員工功能與管理入口</p>
+    </section>
+    <section class="card">
+      <div class="grid">
+        <a class="btn" href="index.html">管理入口</a>
+        <button class="btn ghost" data-action="employeeBootstrap">員工資料</button>
+        <button class="btn ghost" data-action="getPublishedScheduleForCalendar">正式班表</button>
+      </div>
+      <div id="msg" class="message hidden"></div>
+    </section>
+  </main>
+  <script src="config.js"></script>
+  <script src="api.js"></script>
+  <script>
+    const empId = localStorage.getItem('ang_hr_id') || '';
+    const empToken = localStorage.getItem('ang_hr_token') || '';
+    const msg = document.getElementById('msg');
+    function show(text, ok) { msg.textContent = text; msg.className = ok ? 'message ok' : 'message'; }
+    document.querySelectorAll('[data-action]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const res = await ANG_HR_API.post(btn.dataset.action, { id: empId, token: empToken });
+        show(res.message || (res.ok ? '讀取成功' : '讀取失敗'), !!res.ok);
+      });
+    });
+  </script>
+</body>
+</html>
