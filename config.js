@@ -1,7 +1,7 @@
 window.ANG_HR_CONFIG = {
   edition: 'plus',
   editionName: 'ANG HR Plus',
-  apiBaseUrl: '',
+  apiBaseUrl: 'https://script.google.com/macros/s/AKfycbzSwufSpMlK-DdmrxJ6m-jZvUT__iSUsDdCNXQaXUbCScs_-h9MTWP_7grMIq03RzILbQ/exec',
   defaultPage: 'admin',
   features: {
     employeeHome: true,
