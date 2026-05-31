@@ -17,3 +17,12 @@ v2_leave_calc：
 - 即時計算總時數與每日班別明細。
 - 送出 payload 帶 calcMode: schedule_based。
 - config.js 已填入此版本 GAS URL。
+
+修正 v3：移除 GitHub Pages 不能解析的 GAS 模板語法，例如 <?= typeof ID !== 'undefined' ? ID : '' ?>。
+
+v4_password：
+- login.html 增加忘記密碼 / 重設密碼。
+- employee_home.html 增加修改自己的密碼。
+- admin_people.html 增加管理員重設員工密碼。
+- 對應 GAS action：changePassword、requestPasswordReset、resetEmployeePassword。
+- 修改成功後會登出並要求重新登入。

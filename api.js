@@ -1,15 +1,10 @@
-const ANG_HR_API = (() => {
-  const cfg = window.ANG_HR_CONFIG || {};
-  async function post(action, payload = {}) {
-    if (!cfg.apiBaseUrl) return { ok: false, message: '尚未設定 apiBaseUrl' };
-    const res = await fetch(cfg.apiBaseUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(Object.assign({ action }, payload))
-    });
-    const text = await res.text();
-    try { return JSON.parse(text); }
-    catch (err) { return { ok: false, message: 'API 回傳格式錯誤', raw: text }; }
-  }
-  return { post };
-})();
+window.ANG_HR_CONFIG = {
+  edition: 'plus',
+  editionName: 'ANG HR Plus',
+
+  apiBaseUrl: 'https://script.google.com/macros/s/AKfycbzSwufSpMlK-DdmrxJ6m-jZvUT__iSUsDdCNXQaXUbCScs_-h9MTWP_7grMIq03RzILbQ/exec',
+  gasUrl: 'https://script.google.com/macros/s/AKfycbzSwufSpMlK-DdmrxJ6m-jZvUT__iSUsDdCNXQaXUbCScs_-h9MTWP_7grMIq03RzILbQ/exec',
+
+  defaultPage: 'admin',
+  version: 'leave_calc_v2'
+};
