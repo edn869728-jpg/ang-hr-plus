@@ -39,3 +39,5 @@ v7_repo_clean：
 - 建議 repo 先刪舊檔再整包上傳。
 
 v8_jsfix：修正 app.js 清模板後多出大括號造成 JS 停止，解決畫面卡在載入中。
+
+v9_bootfix：所有 HTML 加上 app.js cache busting 與 fallback boot，避免畫面卡在載入中。
