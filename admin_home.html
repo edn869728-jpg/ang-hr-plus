@@ -107,16 +107,17 @@ function featureOfPage(page){return {home:'home',switch:'home',schedule:'leave',
 function applyFeatureVisibility(){document.querySelectorAll('[data-feature]').forEach(function(el){if(!hasFeature(el.getAttribute('data-feature')))el.classList.add('hidden')});qs('branchQuota').textContent=FEATURES.branches+' 店；店舖包 +1店/+5人';qs('empQuota').textContent=FEATURES.employees+' 人；人員包 +10人'}
 let CURRENT_PAGE='home';
 function homeKey(){
-  const adminPages=['admin','review','admin_schedule','admin_salary','people','settings','data','notice'];
-  if(CURRENT_PAGE==='home'){
-    go('admin');
+  const file=location.pathname.split('/').pop();
+  const isAdminFile=/^admin(_|\.html)/.test(file)||file==='admin.html';
+  if(isAdminFile){
+    location.href='employee_home.html';
     return;
   }
-  if(adminPages.includes(CURRENT_PAGE)){
+  if(!hasFeature('admin')){
     go('home');
     return;
   }
-  go('home');
+  location.href='admin_home.html';
 }
 function go(page){CURRENT_PAGE=page;const f=featureOfPage(page);const isAdmin=['admin','review','admin_schedule','admin_salary','people','settings','data','notice'].includes(page);qs('employeeNav').classList.toggle('hidden',isAdmin);qs('adminNav').classList.toggle('hidden',!isAdmin);document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));if(!hasFeature(f)){qs('lockedText').textContent=PLAN_NAME+' 未開放「'+page+'」，此功能需升級。';qs('page-locked').classList.add('active');return}(qs('page-'+page)||qs('page-home')).classList.add('active');const b=qs('nav-'+page)||qs('nav-home');if(b)b.classList.add('active');if(page==='home')qs('nav-home').classList.add('main');location.hash=page}
 function drawCalendar(id,type){
