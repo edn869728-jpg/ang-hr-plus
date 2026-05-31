@@ -37,3 +37,5 @@ v7_repo_clean：
 - index.html 支援舊 ?page=employee / ?page=clock / ?page=mysalary / ?page=upload 轉到新靜態頁。
 - reset_cache.html 加強清除 localStorage / sessionStorage / cache。
 - 建議 repo 先刪舊檔再整包上傳。
+
+v8_jsfix：修正 app.js 清模板後多出大括號造成 JS 停止，解決畫面卡在載入中。
