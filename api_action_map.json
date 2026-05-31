@@ -1,0 +1,47 @@
+{
+  "auth": [
+    "login",
+    "register",
+    "employeeBootstrap",
+    "adminBootstrap",
+    "refreshWebCode"
+  ],
+  "employee_home": [
+    "getTodayStatus",
+    "getHomeStats",
+    "getNotifications",
+    "getNoticesForEmployee",
+    "getRecentActivities"
+  ],
+  "clock": [
+    "clock",
+    "submitEmployeeClockFix",
+    "generateIosShortcutJson",
+    "sendClockFromShortcut",
+    "rebindDevice"
+  ],
+  "leave_schedule": [
+    "employeeLeave",
+    "submitPreselect",
+    "getPublishedScheduleForCalendar",
+    "getShiftTypes"
+  ],
+  "salary": [
+    "getSalaryHistory",
+    "getSalaryDetail",
+    "downloadSalarySlip"
+  ],
+  "upload": [
+    "submitEmployeeUpload",
+    "employeeUpload"
+  ],
+  "admin_review": [
+    "adminSetReviewStatus"
+  ],
+  "settings": [
+    "saveDeadlineSettings",
+    "saveBrandSettings",
+    "getSettingsHash",
+    "checkForUpdates"
+  ]
+}
