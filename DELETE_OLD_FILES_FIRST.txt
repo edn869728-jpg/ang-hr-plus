@@ -1,0 +1,13 @@
+上傳 GitHub 前請先注意：
+
+這版已經附上 employee.html、admin.html、clock.html、mysalary.html、upload.html、js_idle.html 的覆蓋檔，
+用來清掉舊 GAS 模板版殘留。
+
+建議 GitHub repo：
+1. 先全選舊檔案刪除，保留 .git 不用管。
+2. 再上傳本 ZIP 解壓後的所有檔案到 repo 根目錄。
+3. 不要多包一層資料夾。
+4. 上傳後先開 reset_cache.html?v=7。
+5. 再開 login.html?v=7 或 index.html?v=7。
+
+如果只覆蓋部分檔案，舊 employee.html 可能還會繼續顯示 <?= TYPEOF ID ?>。

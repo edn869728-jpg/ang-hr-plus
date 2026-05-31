@@ -28,3 +28,12 @@ v4_password：
 - 修改成功後會登出並要求重新登入。
 
 v5_login_clean：登入頁會自動清除舊 localStorage 裡的 GAS 模板殘留字串；另新增 reset_cache.html 可手動清除。
+
+v6_login_hardfix：完全重寫 renderLogin，登入欄位 value 改為 JS 開頁後帶入，避免任何舊 GAS 模板片段顯示。
+
+v7_repo_clean：
+- 新增 employee.html / admin.html / clock.html / mysalary.html / upload.html 相容跳轉檔。
+- 覆蓋 js_idle.html，避免舊 GAS 閒置跳 ?page=boss。
+- index.html 支援舊 ?page=employee / ?page=clock / ?page=mysalary / ?page=upload 轉到新靜態頁。
+- reset_cache.html 加強清除 localStorage / sessionStorage / cache。
+- 建議 repo 先刪舊檔再整包上傳。

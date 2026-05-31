@@ -27,8 +27,8 @@
     activate: 'activate.html'
   };
   var params = new URLSearchParams(location.search);
-  var page = (params.get('page') || 'admin').toLowerCase().trim();
-  var target = map[page] || 'admin_home.html';
+  var page = (params.get('page') || 'clock').toLowerCase().trim();
+  var target = map[page] || 'employee_clock.html';
   var keep = [];
   ['id','token','role','name'].forEach(function(k){
     var v = params.get(k);
