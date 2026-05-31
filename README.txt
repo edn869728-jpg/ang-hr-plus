@@ -26,3 +26,5 @@ v4_password：
 - admin_people.html 增加管理員重設員工密碼。
 - 對應 GAS action：changePassword、requestPasswordReset、resetEmployeePassword。
 - 修改成功後會登出並要求重新登入。
+
+v5_login_clean：登入頁會自動清除舊 localStorage 裡的 GAS 模板殘留字串；另新增 reset_cache.html 可手動清除。
