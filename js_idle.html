@@ -1,38 +1,32 @@
 <script>
+
 (function(){
   'use strict';
-
-  if (window.__ANG_HR_IDLE_TIMER_ACTIVE__) return;
-  window.__ANG_HR_IDLE_TIMER_ACTIVE__ = true;
-
-  var timer = null;
+  var timer;
   var idleLimit = 15 * 60 * 1000;
-
-  function goLogin(){
-    try {
-      ['ang_employee_id','ang_employee_name','ang_employee_role','ang_hr_token','emp_logged_in','emp_name','isLoggedIn','loginId','id','employeeId','employee_id','currentEmployeeId','token'].forEach(function(k){ localStorage.removeItem(k); });
-      sessionStorage.clear();
-    } catch(e) {}
-
-    var base = window.location.origin + window.location.pathname;
-    if (base.indexOf('.html') >= 0) base = base.substring(0, base.lastIndexOf('/') + 1);
-    window.top.location.href = base + 'login.html?v=15';
-  }
-
   function performAutoLogout(){
-    alert('🔒 安全警示：您已閒置超過 15 分鐘，系統將自動登出。');
-    goLogin();
+    try {
+      if (window.ANGAuth) {
+        ANGAuth.clear();
+        ANGAuth.toast('已閒置 15 分鐘，系統已自動登出。');
+        setTimeout(function(){ ANGAuth.go('login', null, {noAuth:true}); }, 650);
+        return;
+      }
+      ['isLoggedIn','loginId','emp_logged_in','emp_name','loginToken','authToken'].forEach(function(k){ localStorage.removeItem(k); });
+      var base = window.location.pathname.replace(/[^\/]*$/, 'login.html');
+      window.top.location.href = base;
+    } catch(e) {
+      window.location.href = 'login.html';
+    }
   }
-
   function resetIdleTimer(){
     if (timer) clearTimeout(timer);
     timer = setTimeout(performAutoLogout, idleLimit);
   }
-
-  ['mousedown','mousemove','keypress','scroll','touchstart','click','keydown'].forEach(function(eventName){
+  ['mousedown','mousemove','keydown','scroll','touchstart','click','visibilitychange'].forEach(function(eventName){
     document.addEventListener(eventName, resetIdleTimer, true);
   });
-
   resetIdleTimer();
 })();
+
 </script>

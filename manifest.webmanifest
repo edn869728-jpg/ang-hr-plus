@@ -1,0 +1,9 @@
+{
+  "name": "ANG HR Plus",
+  "short_name": "HR Plus",
+  "start_url": "./login.html",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#8089FF",
+  "icons": []
+}
