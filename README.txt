@@ -45,3 +45,9 @@ v8_login_submit_fix：
 - 上傳後建議先開 reset_cache.html?v=8。
 
 v9_login_standalone：login.html 改成獨立登入頁，不再經過 app.js renderLogin；前端直接讀 #loginId，送出 id / employeeId / account / password / pwd 給 GAS。
+
+v10_inline_style：
+- 修正 Premium / 其他版本如果 assets/app.css 沒載入，畫面變成原始黑白排版。
+- 已把主要 CSS 直接內嵌進每個 HTML。
+- 仍保留 assets/app.css，兩邊都可用。
+- 上傳後建議先開 reset_cache.html?v=10，再開 login.html?v=10。
