@@ -1,13 +1,1 @@
-上傳 GitHub 前請先注意：
-
-這版已經附上 employee.html、admin.html、clock.html、mysalary.html、upload.html、js_idle.html 的覆蓋檔，
-用來清掉舊 GAS 模板版殘留。
-
-建議 GitHub repo：
-1. 先全選舊檔案刪除，保留 .git 不用管。
-2. 再上傳本 ZIP 解壓後的所有檔案到 repo 根目錄。
-3. 不要多包一層資料夾。
-4. 上傳後先開 reset_cache.html?v=7。
-5. 再開 login.html?v=7 或 index.html?v=7。
-
-如果只覆蓋部分檔案，舊 employee.html 可能還會繼續顯示 <?= TYPEOF ID ?>。
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#FF87E0"><title>ANG HR 系統設定</title><link rel="manifest" href="assets/pwa/manifest.json"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"><link rel="stylesheet" href="assets/app.css"></head><body data-page="admin_settings"><header class="topbar"><div class="logo">ANG</div><div class="brand"><div class="brand-main" id="brandName">ANG.lo Engine</div><div class="brand-sub" id="brandSub">HR 系統</div></div></header><main id="main" class="safe"><section class="card"><h1 class="title">載入中...</h1><div class="notice">系統正在初始化。</div></section></main><nav id="employeeNav" class="nav hidden"><button data-page-link="employee_schedule.html" data-feature="leave"><i class="fa-solid fa-calendar-check"></i><span>請假排班</span></button><button data-page-link="employee_clock.html" data-feature="clock"><i class="fa-solid fa-clock-rotate-left"></i><span>打卡記錄</span></button><button data-home-key="employee" class="main"><i class="fa-solid fa-house"></i><span>員工主頁</span></button><button data-page-link="employee_salary.html" data-feature="salary"><i class="fa-solid fa-money-check-dollar"></i><span>薪資明細</span></button><button data-page-link="employee_upload.html" data-feature="upload"><i class="fa-solid fa-file-arrow-up"></i><span>資料上傳</span></button></nav><nav id="adminNav" class="nav hidden"><button data-home-key="admin" data-feature="admin" class="main"><i class="fa-solid fa-house-user"></i><span>管理主頁</span></button><button data-page-link="admin_review.html" data-feature="review"><i class="fa-solid fa-clipboard-check"></i><span>審核</span></button><button data-page-link="admin_schedule.html" data-feature="admin_schedule"><i class="fa-solid fa-calendar-days"></i><span>排班</span></button><button data-page-link="admin_people.html" data-feature="people"><i class="fa-solid fa-users"></i><span>人員</span></button><button data-page-link="admin_settings.html" data-feature="settings"><i class="fa-solid fa-gear"></i><span>系統</span></button></nav><div id="toast" class="toast hidden"></div><script src="assets/config.js"></script><script src="assets/features.js"></script><script src="assets/api.js"></script><script src="assets/auth.js"></script><script src="assets/calendars.js"></script><script src="assets/app.js"></script></body></html>

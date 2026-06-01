@@ -1,65 +1,9 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#FF87E0"><title>ANG HR 啟用 / 綁定</title><link rel="manifest" href="assets/pwa/manifest.json"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"><link rel="stylesheet" href="assets/app.css?v=9"></head><body data-page="activate"><header class="topbar"><div class="logo">ANG</div><div class="brand"><div class="brand-main" id="brandName">ANG.lo Engine</div><div class="brand-sub" id="brandSub">HR 系統</div></div></header><main id="main" class="safe"><section class="card"><h1 class="title">載入中...</h1><div class="notice">系統正在初始化。</div></section></main><nav id="employeeNav" class="nav hidden"><button data-page-link="employee_schedule.html" data-feature="leave"><i class="fa-solid fa-calendar-check"></i><span>請假排班</span></button><button data-page-link="employee_clock.html" data-feature="clock"><i class="fa-solid fa-clock-rotate-left"></i><span>打卡記錄</span></button><button data-home-key="employee" class="main"><i class="fa-solid fa-house"></i><span>員工主頁</span></button><button data-page-link="employee_salary.html" data-feature="salary"><i class="fa-solid fa-money-check-dollar"></i><span>薪資明細</span></button><button data-page-link="employee_upload.html" data-feature="upload"><i class="fa-solid fa-file-arrow-up"></i><span>資料上傳</span></button></nav><nav id="adminNav" class="nav hidden"><button data-home-key="admin" data-feature="admin" class="main"><i class="fa-solid fa-house-user"></i><span>管理主頁</span></button><button data-page-link="admin_review.html" data-feature="review"><i class="fa-solid fa-clipboard-check"></i><span>審核</span></button><button data-page-link="admin_schedule.html" data-feature="admin_schedule"><i class="fa-solid fa-calendar-days"></i><span>排班</span></button><button data-page-link="admin_people.html" data-feature="people"><i class="fa-solid fa-users"></i><span>人員</span></button><button data-page-link="admin_settings.html" data-feature="settings"><i class="fa-solid fa-gear"></i><span>系統</span></button></nav><div id="toast" class="toast hidden"></div><script src="assets/config.js?v=9"></script><script src="assets/features.js?v=9"></script><script src="assets/api.js?v=9"></script><script src="assets/auth.js?v=9"></script><script src="assets/calendars.js?v=9"></script><script src="assets/app.js?v=9"></script>
-<script>
-(function(){
-  window.__ANG_BOOT_FALLBACK_TIMER__ = setTimeout(function(){
-    var bodyPage = document.body && document.body.getAttribute('data-page') || '';
-    var main = document.getElementById('main');
-    var alreadyRendered = main && main.textContent && main.textContent.indexOf('系統正在初始化') === -1 && main.textContent.indexOf('載入中') === -1;
-    if (alreadyRendered) return;
-
-    function brandSub(){
-      var cfg = window.ANG_HR_CONFIG || {};
-      var plan = window.ANG_HR_PLAN || {};
-      var sub = document.getElementById('brandSub');
-      if(sub) sub.textContent = 'HR 系統｜' + (cfg.editionName || plan.name || '') + (plan.included ? '｜' + plan.included : '');
-    }
-
-    function hero(title, sub){
-      return '<div class="hero"><div class="hero-top"><div><div class="hello">'+title+'</div><div class="hello-sub">'+sub+'</div></div><div class="chip">'+((window.ANG_HR_PLAN||{}).name || (window.ANG_HR_CONFIG||{}).editionName || '')+'</div></div></div>';
-    }
-
-    function renderLoginFallback(){
-      brandSub();
-      if(!main) return;
-      main.innerHTML =
-        hero('ANG HR 登入','請輸入員工編號與密碼') +
-        '<section class="card">' +
-        '<label class="label">員工編號</label>' +
-        '<input id="loginId" autocomplete="username" placeholder="例如 ANG0603" value="">' +
-        '<label class="label">密碼</label>' +
-        '<input id="loginPassword" type="password" autocomplete="current-password" placeholder="請輸入密碼">' +
-        '<button class="btn" id="loginBtn">登入</button>' +
-        '<button class="btn soft" style="margin-top:8px" onclick="location.href=\\'activate.html\\'">啟用 / 綁定帳號</button>' +
-        '</section>';
-      var btn = document.getElementById('loginBtn');
-      if(btn){
-        btn.onclick = function(){
-          localStorage.setItem('ang_employee_id', (document.getElementById('loginId').value || 'ANG0603').toUpperCase());
-          localStorage.setItem('ang_employee_name', '小米');
-          localStorage.setItem('ang_employee_role', 'creator');
-          localStorage.setItem('ang_hr_token', 'fallback-token');
-          location.href = 'employee_home.html?v=9';
-        };
-      }
-    }
-
-    function renderSimplePageFallback(){
-      brandSub();
-      if(!main) return;
-      main.innerHTML =
-        hero('ANG HR','前端 fallback 已啟動') +
-        '<section class="card"><h3 class="title">系統已載入</h3><div class="notice">外部 app.js 可能仍在快取中，這是保險畫面。請先開 reset_cache.html?v=9 後再重新開 login.html?v=9。</div><button class="btn" onclick="location.href=\\'login.html?v=9\\'">回登入</button></section>';
-    }
-
-    if(bodyPage === 'login' || location.pathname.endsWith('/login.html')){
-      renderLoginFallback();
-    }else if(bodyPage === 'index'){
-      location.href = 'login.html?v=9';
-    }else{
-      renderSimplePageFallback();
-    }
-  }, 1200);
-})();
-</script>
-
-</body></html>
+{
+  "name": "ANG HR Plus",
+  "short_name": "HR Plus",
+  "start_url": "../../index.html",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#FF87E0",
+  "icons": []
+}

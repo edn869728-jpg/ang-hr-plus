@@ -38,6 +38,8 @@ v7_repo_clean：
 - reset_cache.html 加強清除 localStorage / sessionStorage / cache。
 - 建議 repo 先刪舊檔再整包上傳。
 
-v8_jsfix：修正 app.js 清模板後多出大括號造成 JS 停止，解決畫面卡在載入中。
-
-v9_bootfix：所有 HTML 加上 app.js cache busting 與 fallback boot，避免畫面卡在載入中。
+v8_login_submit_fix：
+- 修正 cleanLoginValue 會把所有帳號清成空字串的錯誤。
+- 重新覆蓋 assets/app.js，已通過語法檢查。
+- 登入時會正確讀取目前 input 內的員工編號。
+- 上傳後建議先開 reset_cache.html?v=8。
