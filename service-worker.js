@@ -19,8 +19,7 @@
     const raw = String(value || '');
     const upper = raw.toUpperCase();
     if (
-      raw.indexOf('<?') >= 0 ||
-      raw.indexOf('?>') >= 0 ||
+      raw.indexOf('') >= 0 ||
       upper.indexOf('TYPEOF ID') >= 0 ||
       upper.indexOf('UNDEFINED') >= 0
     ) {
@@ -33,8 +32,7 @@
     const value = String(localStorage.getItem('ang_employee_id') || '');
     const upper = value.toUpperCase();
     if (
-      value.indexOf('<?') >= 0 ||
-      value.indexOf('?>') >= 0 ||
+      value.indexOf('') >= 0 ||
       upper.indexOf('TYPEOF ID') >= 0 ||
       upper.indexOf('UNDEFINED') >= 0
     ) {

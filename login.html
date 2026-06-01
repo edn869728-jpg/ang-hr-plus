@@ -1,1 +1,171 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#FF87E0"><title>ANG HR 登入</title><link rel="manifest" href="assets/pwa/manifest.json"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"><link rel="stylesheet" href="assets/app.css"></head><body data-page="login"><header class="topbar"><div class="logo">ANG</div><div class="brand"><div class="brand-main" id="brandName">ANG.lo Engine</div><div class="brand-sub" id="brandSub">HR 系統</div></div></header><main id="main" class="safe"><section class="card"><h1 class="title">載入中...</h1><div class="notice">系統正在初始化。</div></section></main><nav id="employeeNav" class="nav hidden"><button data-page-link="employee_schedule.html" data-feature="leave"><i class="fa-solid fa-calendar-check"></i><span>請假排班</span></button><button data-page-link="employee_clock.html" data-feature="clock"><i class="fa-solid fa-clock-rotate-left"></i><span>打卡記錄</span></button><button data-home-key="employee" class="main"><i class="fa-solid fa-house"></i><span>員工主頁</span></button><button data-page-link="employee_salary.html" data-feature="salary"><i class="fa-solid fa-money-check-dollar"></i><span>薪資明細</span></button><button data-page-link="employee_upload.html" data-feature="upload"><i class="fa-solid fa-file-arrow-up"></i><span>資料上傳</span></button></nav><nav id="adminNav" class="nav hidden"><button data-home-key="admin" data-feature="admin" class="main"><i class="fa-solid fa-house-user"></i><span>管理主頁</span></button><button data-page-link="admin_review.html" data-feature="review"><i class="fa-solid fa-clipboard-check"></i><span>審核</span></button><button data-page-link="admin_schedule.html" data-feature="admin_schedule"><i class="fa-solid fa-calendar-days"></i><span>排班</span></button><button data-page-link="admin_people.html" data-feature="people"><i class="fa-solid fa-users"></i><span>人員</span></button><button data-page-link="admin_settings.html" data-feature="settings"><i class="fa-solid fa-gear"></i><span>系統</span></button></nav><div id="toast" class="toast hidden"></div><script src="assets/config.js"></script><script src="assets/features.js"></script><script src="assets/api.js"></script><script src="assets/auth.js"></script><script src="assets/calendars.js"></script><script src="assets/app.js"></script></body></html>
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#FF87E0">
+<title>ANG HR Plus 登入</title>
+<link rel="stylesheet" href="assets/app.css">
+<style>
+body{padding:96px 10px 40px}
+.login-wrap{max-width:720px;margin:0 auto}
+.login-card{background:#fff;border-radius:24px;padding:18px;box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.login-actions{display:grid;gap:10px;margin-top:10px}
+.debug-box{margin-top:12px;padding:12px;border-radius:14px;background:#111827;color:#fff;font-size:13px;white-space:pre-wrap;display:none}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="logo">ANG</div>
+  <div class="brand">
+    <div class="brand-main">ANG.lo Engine</div>
+    <div class="brand-sub">HR 系統｜Plus｜5 店｜25 人</div>
+  </div>
+</header>
+
+<main class="login-wrap">
+  <section class="hero">
+    <div class="hero-top">
+      <div>
+        <div class="hello">ANG HR 登入</div>
+        <div class="hello-sub">請輸入員工編號與密碼</div>
+      </div>
+      <div class="chip">Plus</div>
+    </div>
+    <div class="shift">
+      <div><small>授權額度</small><div class="big">5 店｜25 人</div></div>
+      <div><small>版本狀態</small><div class="big">正常</div></div>
+    </div>
+  </section>
+
+  <section class="login-card">
+    <label class="label" for="loginId">員工編號</label>
+    <input id="loginId" name="loginId" autocomplete="username" inputmode="text" autocapitalize="characters" placeholder="例如 ANG0603">
+
+    <label class="label" for="loginPassword">密碼</label>
+    <input id="loginPassword" name="loginPassword" type="password" autocomplete="current-password" placeholder="請輸入密碼">
+
+    <div class="login-actions">
+      <button class="btn" id="loginBtn" type="button">登入</button>
+      <button class="btn soft" type="button" onclick="location.href='activate.html?v=9'">啟用 / 綁定帳號</button>
+      <button class="btn gray" type="button" id="forgotBtn">忘記密碼 / 重設密碼</button>
+    </div>
+
+    <div id="debugBox" class="debug-box"></div>
+  </section>
+</main>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="assets/config.js"></script>
+<script src="assets/api.js"></script>
+<script src="assets/auth.js"></script>
+<script>
+(function(){
+  function toast(message){
+    var el=document.getElementById('toast');
+    if(!el){ alert(message); return; }
+    el.textContent=message;
+    el.classList.remove('hidden');
+    setTimeout(function(){ el.classList.add('hidden'); },2600);
+  }
+
+  function cleanId(v){
+    v=String(v||'').trim();
+    if(v.indexOf('<?')>=0 || v.indexOf('?>')>=0 || v.toUpperCase().indexOf('TYPEOF ID')>=0 || v.toUpperCase().indexOf('UNDEFINED')>=0) return '';
+    return v.replace(/[^A-Za-z0-9_-]/g,'').toUpperCase();
+  }
+
+  function clearBadLoginCache(){
+    var v=String(localStorage.getItem('ang_employee_id')||'');
+    if(v.indexOf('<?')>=0 || v.indexOf('?>')>=0 || v.toUpperCase().indexOf('TYPEOF ID')>=0 || v.toUpperCase().indexOf('UNDEFINED')>=0){
+      ['ang_employee_id','ang_employee_name','ang_employee_role','ang_hr_token'].forEach(function(k){localStorage.removeItem(k);});
+    }
+  }
+
+  function saveLogin(res, id){
+    if(window.ANG_HR_AUTH && typeof ANG_HR_AUTH.saveLogin==='function'){
+      ANG_HR_AUTH.saveLogin(res);
+      return;
+    }
+    localStorage.setItem('ang_employee_id', String(res.id || id || '').toUpperCase());
+    localStorage.setItem('ang_employee_name', res.name || res.nickname || res.id || id || '');
+    localStorage.setItem('ang_employee_role', String(res.role || 'employee').toLowerCase());
+    localStorage.setItem('ang_hr_token', res.token || 'login-token');
+  }
+
+  async function doLogin(){
+    var idInput=document.getElementById('loginId');
+    var pwInput=document.getElementById('loginPassword');
+
+    var id=cleanId(idInput ? idInput.value : '');
+    var password=pwInput ? String(pwInput.value || '') : '';
+
+    if(!id){
+      toast('請輸入員工編號');
+      if(idInput) idInput.focus();
+      return;
+    }
+
+    var btn=document.getElementById('loginBtn');
+    btn.disabled=true;
+    btn.textContent='登入中...';
+
+    var payload={
+      id:id,
+      employeeId:id,
+      account:id,
+      password:password,
+      pwd:password
+    };
+
+    var res=await ANG_HR_API.post('login', payload);
+
+    btn.disabled=false;
+    btn.textContent='登入';
+
+    if(!res || !res.ok){
+      toast((res && (res.message || res.msg)) || '登入失敗');
+      return;
+    }
+
+    saveLogin(res, id);
+    toast('登入成功');
+
+    var role=String(res.role || localStorage.getItem('ang_employee_role') || 'employee').toLowerCase();
+    setTimeout(function(){
+      location.href=(role==='admin'||role==='manager'||role==='creator')?'admin_home.html?v=9':'employee_home.html?v=9';
+    },350);
+  }
+
+  async function forgotPassword(){
+    var id=cleanId(document.getElementById('loginId').value);
+    if(!id){ toast('請先輸入員工編號'); return; }
+    var res=await ANG_HR_API.post('requestPasswordReset', {id:id, employeeId:id, account:id});
+    toast((res && (res.message || res.msg)) || (res && res.ok ? '已送出重設申請' : '送出失敗'));
+  }
+
+  function fillSavedId(){
+    clearBadLoginCache();
+    var saved=cleanId(localStorage.getItem('ang_employee_id')||'');
+    if(saved) document.getElementById('loginId').value=saved;
+  }
+
+  document.getElementById('loginBtn').addEventListener('click', doLogin);
+  document.getElementById('forgotBtn').addEventListener('click', forgotPassword);
+  document.getElementById('loginPassword').addEventListener('keydown', function(e){ if(e.key==='Enter') doLogin(); });
+  document.getElementById('loginId').addEventListener('keydown', function(e){ if(e.key==='Enter') document.getElementById('loginPassword').focus(); });
+
+  fillSavedId();
+
+  if(location.search.indexOf('debug=1')>=0){
+    var box=document.getElementById('debugBox');
+    box.style.display='block';
+    setInterval(function(){
+      box.textContent='目前欄位讀取：\n員工編號=' + document.getElementById('loginId').value + '\n清理後=' + cleanId(document.getElementById('loginId').value);
+    },500);
+  }
+})();
+</script>
+</body>
+</html>

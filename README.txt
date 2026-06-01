@@ -43,3 +43,5 @@ v8_login_submit_fix：
 - 重新覆蓋 assets/app.js，已通過語法檢查。
 - 登入時會正確讀取目前 input 內的員工編號。
 - 上傳後建議先開 reset_cache.html?v=8。
+
+v9_login_standalone：login.html 改成獨立登入頁，不再經過 app.js renderLogin；前端直接讀 #loginId，送出 id / employeeId / account / password / pwd 給 GAS。
