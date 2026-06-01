@@ -7,8 +7,8 @@
 <title>ANG HR 打卡記錄</title>
 <link rel="manifest" href="assets/pwa/manifest.json">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<link rel="stylesheet" href="assets/app.css?v=12">
-<style id="ang-inline-style-v12">
+<link rel="stylesheet" href="assets/app.css?v=15">
+<style>
 :root{--bg:#f5f7fb;--card:#fff;--text:#111827;--muted:#6b7280;--c1:#FF87E0;--c2:#CCA4FF;--c3:#8089FF;--c4:#59DDFF;--deep:#8F4C7E;--grad:linear-gradient(135deg,var(--c1),var(--c2),var(--c3),var(--c4))}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);padding:92px 10px 102px}
@@ -16,43 +16,22 @@ body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,
 .logo{width:72px;height:72px;border-radius:22px;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:24px}
 .brand{text-align:right}.brand-main{font-weight:900;color:var(--deep);font-size:16px}.brand-sub{font-size:11px;color:#9ca3af;font-weight:800;margin-top:3px}
 .safe{max-width:980px;margin:0 auto}
-.hero{background:var(--grad);color:#fff;border-radius:24px;padding:16px;margin-bottom:10px;box-shadow:0 12px 28px rgba(128,137,255,.22)}
-.hero-top{display:flex;justify-content:space-between;gap:10px}.hello{font-size:23px;font-weight:900}.hello-sub{font-size:12px;font-weight:800;opacity:.93;margin-top:5px}.chip{background:rgba(255,255,255,.18);border-radius:999px;padding:8px 12px;font-size:11px;font-weight:900;white-space:nowrap}
 .card{background:#fff;border-radius:22px;padding:14px;margin-bottom:10px;box-shadow:0 8px 24px rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.03)}
 .title{font-size:18px;font-weight:900;margin:0 0 10px}.notice{background:linear-gradient(180deg,#fff,rgba(128,137,255,.06));border:1px solid rgba(128,137,255,.12);border-radius:18px;padding:13px;font-size:15px;line-height:1.55;color:#374151}
-.btn{width:100%;border:0;border-radius:16px;padding:14px 10px;background:var(--grad);color:#fff;font-weight:900;font-size:15px;cursor:pointer}
-.btn.soft{background:linear-gradient(135deg,rgba(255,135,224,.18),rgba(89,221,255,.28));color:var(--deep);border:1px solid rgba(255,135,224,.18)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .nav{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);padding:7px 4px calc(7px + env(safe-area-inset-bottom));border-radius:20px 20px 0 0;box-shadow:0 -5px 18px rgba(0,0,0,.08)}
 .nav button{border:0;border-radius:16px;background:linear-gradient(180deg,#fff,rgba(255,135,224,.08));min-height:58px;color:#6b7280;font-weight:900;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}
 .nav i{font-size:19px}.nav span{font-size:11px}.nav button.active{color:var(--deep);background:linear-gradient(135deg,rgba(255,135,224,.18),rgba(89,221,255,.3))}
 .nav .main{transform:translateY(-12px);min-height:66px;border-radius:999px;background:var(--grad);color:#fff}
-.toast{position:fixed;left:16px;right:16px;bottom:96px;z-index:100;background:#111827;color:#fff;padding:12px 14px;border-radius:16px;font-size:14px;font-weight:800}.hidden{display:none!important}
-@media(max-width:390px){body{padding-left:6px;padding-right:6px}.card{padding:12px}.hello{font-size:21px}.nav span{font-size:10px}}
+.hidden{display:none!important}
 </style>
 </head>
 <body data-page="employee_clock">
-<header class="topbar">
-  <div class="logo">ANG</div>
-  <div class="brand">
-    <div class="brand-main" id="brandName">ANG.lo Engine</div>
-    <div class="brand-sub" id="brandSub">HR 系統｜Plus</div>
-  </div>
-</header>
+<header class="topbar"><div class="logo">ANG</div><div class="brand"><div class="brand-main" id="brandName">ANG.lo Engine</div><div class="brand-sub" id="brandSub">HR 系統｜Plus</div></div></header>
 
 <main id="main" class="safe">
-  <section class="hero">
-    <div class="hero-top">
-      <div>
-        <div class="hello">打卡記錄</div>
-        <div class="hello-sub">正在載入系統資料...</div>
-      </div>
-      <div class="chip">Plus</div>
-    </div>
-  </section>
   <section class="card">
-    <h1 class="title">載入中...</h1>
-    <div class="notice">如果停在這裡，代表 assets/app.js 尚未載入；請確認 repo 根目錄有 assets 資料夾。</div>
+    <h1 class="title">打卡記錄載入中...</h1>
+    <div class="notice">正在載入打卡記錄。若仍顯示此段，請確認 assets/app.js 沒被覆蓋成空殼。</div>
   </section>
 </main>
 
@@ -77,14 +56,14 @@ body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,
 <script>
 (function(){
   var legacyId = (localStorage.getItem('ang_employee_id') || localStorage.getItem('emp_logged_in') || localStorage.getItem('loginId') || '').trim().toUpperCase();
-  if (!legacyId) location.replace('login.html?v=12');
+  if (!legacyId) location.replace('login.html?v=15');
 })();
 </script>
-<script src="assets/config.js?v=12"></script>
-<script src="assets/features.js?v=12"></script>
-<script src="assets/api.js?v=12"></script>
-<script src="assets/auth.js?v=12"></script>
-<script src="assets/calendars.js?v=12"></script>
-<script src="assets/app.js?v=12"></script>
+<script src="assets/config.js?v=15"></script>
+<script src="assets/features.js?v=15"></script>
+<script src="assets/api.js?v=15"></script>
+<script src="assets/auth.js?v=15"></script>
+<script src="assets/calendars.js?v=15"></script>
+<script src="assets/app.js?v=15"></script>
 </body>
 </html>

@@ -18,32 +18,28 @@ body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,
 .login-card{background:#fff;border-radius:24px;padding:18px;box-shadow:0 8px 24px rgba(0,0,0,.06)}
 .label{display:block;font-size:14px;font-weight:900;color:var(--muted);margin:0 0 7px}
 input{width:100%;border:0;outline:0;border-radius:16px;background:#f3f4f6;padding:14px 12px;font:inherit;font-size:16px;margin-bottom:10px;-webkit-appearance:none;appearance:none}
-.btn{width:100%;border:0;border-radius:16px;padding:14px 10px;background:var(--grad);color:#fff;font-weight:900;font-size:15px;cursor:pointer;touch-action:manipulation}.btn:disabled{opacity:.62;cursor:wait}.btn.soft{background:linear-gradient(135deg,rgba(255,135,224,.18),rgba(89,221,255,.28));color:var(--deep);border:1px solid rgba(255,135,224,.18)}.btn.gray{background:#f3f4f6;color:#111827}
+.btn{width:100%;border:0;border-radius:16px;padding:14px 10px;background:var(--grad);color:#fff;font-weight:900;font-size:15px;cursor:pointer;touch-action:manipulation}
+.btn:disabled{opacity:.62;cursor:wait}.btn.soft{background:linear-gradient(135deg,rgba(255,135,224,.18),rgba(89,221,255,.28));color:var(--deep);border:1px solid rgba(255,135,224,.18)}.btn.gray{background:#f3f4f6;color:#111827}
 .login-actions{display:grid;gap:10px;margin-top:10px}.notice{margin-top:10px;background:linear-gradient(180deg,#fff,rgba(128,137,255,.06));border:1px solid rgba(128,137,255,.12);border-radius:18px;padding:13px;font-size:14px;line-height:1.55;color:#374151}
-.toast{position:fixed;left:16px;right:16px;bottom:24px;z-index:100;background:#111827;color:#fff;padding:12px 14px;border-radius:16px;font-size:14px;font-weight:800}.hidden{display:none!important}.debug-box{margin-top:12px;padding:12px;border-radius:14px;background:#111827;color:#fff;font-size:13px;white-space:pre-wrap;display:none}
+.toast{position:fixed;left:16px;right:16px;bottom:24px;z-index:100;background:#111827;color:#fff;padding:12px 14px;border-radius:16px;font-size:14px;font-weight:800}.hidden{display:none!important}
+.debug-box{margin-top:12px;padding:12px;border-radius:14px;background:#111827;color:#fff;font-size:13px;white-space:pre-wrap;display:none}
 </style>
 </head>
 <body>
 <header class="topbar">
   <div class="logo">ANG</div>
-  <div class="brand">
-    <div class="brand-main">ANG.lo Engine</div>
-    <div class="brand-sub">HR 系統｜Plus</div>
-  </div>
+  <div class="brand"><div class="brand-main">ANG.lo Engine</div><div class="brand-sub">HR 系統｜Plus</div></div>
 </header>
 
 <main class="login-wrap">
   <section class="hero">
     <div class="hero-top">
-      <div>
-        <div class="hello">ANG HR 登入</div>
-        <div class="hello-sub">請輸入員工編號與密碼</div>
-      </div>
+      <div><div class="hello">ANG HR 登入</div><div class="hello-sub">請輸入員工編號與密碼</div></div>
       <div class="chip">Plus</div>
     </div>
     <div class="shift">
       <div><small>登入後</small><div class="big">一律先進員工頁</div></div>
-      <div><small>版本</small><div class="big">v12</div></div>
+      <div><small>版本</small><div class="big">v15</div></div>
     </div>
   </section>
 
@@ -60,7 +56,7 @@ input{width:100%;border:0;outline:0;border-radius:16px;background:#f3f4f6;paddin
       <button class="btn gray" type="button" id="forgotBtn">忘記密碼 / 重設密碼</button>
     </div>
 
-    <div class="notice">此版只修登入：成功後一律前往 employee_home.html，不讀取首頁資料、不覆蓋原本資料功能 JS。</div>
+    <div class="notice">v15：登入成功後一律先進員工頁；同時保存 ang_employee_id / emp_logged_in / token / role，供打卡上下班與管理頁使用。</div>
     <div id="debugBox" class="debug-box"></div>
   </section>
 </main>
@@ -72,6 +68,7 @@ input{width:100%;border:0;outline:0;border-radius:16px;background:#f3f4f6;paddin
   'use strict';
 
   var GAS_URL = 'https://script.google.com/macros/s/AKfycbzSwufSpMlK-DdmrxJ6m-jZvUT__iSUsDdCNXQaXUbCScs_-h9MTWP_7grMIq03RzILbQ/exec';
+  var LOGIN_TARGET = 'employee_home.html?v=15';
 
   function toast(message){
     var el=document.getElementById('toast');
@@ -87,8 +84,19 @@ input{width:100%;border:0;outline:0;border-radius:16px;background:#f3f4f6;paddin
     return v.replace(/[^A-Za-z0-9_-]/g,'').toUpperCase();
   }
 
+  function guessRole(id, role){
+    id = cleanId(id);
+    role = String(role || '').trim().toLowerCase();
+    if(!role || role === 'employee' || role === 'staff'){
+      if(id === 'ANG0603') return 'creator';
+      if(id === 'ANG0606') return 'manager';
+      if(id === 'ANG0601') return 'admin';
+    }
+    return role || 'employee';
+  }
+
   function clearBadLoginCache(){
-    var keys=['ang_employee_id','ang_employee_name','ang_employee_role','ang_hr_token','emp_logged_in','emp_name','isLoggedIn','loginId'];
+    var keys=['ang_employee_id','ang_employee_name','ang_employee_role','ang_hr_token','emp_logged_in','emp_name','isLoggedIn','loginId','id','employeeId','employee_id','currentEmployeeId','token'];
     keys.forEach(function(k){
       var v=String(localStorage.getItem(k)||'');
       if(v.indexOf('<?')>=0 || v.indexOf('?>')>=0 || v.toUpperCase().indexOf('TYPEOF ID')>=0 || v.toUpperCase().indexOf('UNDEFINED')>=0){
@@ -118,12 +126,7 @@ input{width:100%;border:0;outline:0;border-radius:16px;background:#f3f4f6;paddin
     });
 
     try{
-      var res=await fetch(GAS_URL,{
-        method:'POST',
-        mode:'cors',
-        headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body:JSON.stringify(body)
-      });
+      var res=await fetch(GAS_URL,{method:'POST',mode:'cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)});
       return normalizeResponse(await res.text());
     }catch(postErr){
       try{
@@ -140,8 +143,9 @@ input{width:100%;border:0;outline:0;border-radius:16px;background:#f3f4f6;paddin
     var user=res.user||{};
     var finalId=cleanId(res.id||res.employeeId||res.employee_id||res.account||user.id||user.employeeId||id);
     if(!finalId) finalId=id;
+
     var name=res.name||res.nickname||user.name||user.nickname||finalId;
-    var role=String(res.role||user.role||'employee').toLowerCase();
+    var role=guessRole(finalId, res.role||user.role);
     var token=res.token||res.loginToken||user.token||user.loginToken||('login-token-'+Date.now());
 
     localStorage.setItem('ang_employee_id',finalId);
@@ -153,6 +157,12 @@ input{width:100%;border:0;outline:0;border-radius:16px;background:#f3f4f6;paddin
     localStorage.setItem('emp_name',name);
     localStorage.setItem('isLoggedIn','true');
     localStorage.setItem('loginId',finalId);
+
+    localStorage.setItem('id',finalId);
+    localStorage.setItem('employeeId',finalId);
+    localStorage.setItem('employee_id',finalId);
+    localStorage.setItem('currentEmployeeId',finalId);
+    localStorage.setItem('token',token);
     return true;
   }
 
@@ -162,13 +172,17 @@ input{width:100%;border:0;outline:0;border-radius:16px;background:#f3f4f6;paddin
     var id=cleanId(idInput ? idInput.value : '');
     var password=pwInput ? String(pwInput.value || '') : '';
 
-    if(!id){ toast('請輸入員工編號'); if(idInput) idInput.focus(); return; }
+    if(!id){
+      toast('請輸入員工編號');
+      if(idInput) idInput.focus();
+      return;
+    }
 
     var btn=document.getElementById('loginBtn');
     btn.disabled=true;
     btn.textContent='登入中...';
 
-    var res=await postAction('login',{id:id,employeeId:id,account:id,password:password,pwd:password});
+    var res=await postAction('login',{id:id,employeeId:id,employee_id:id,account:id,password:password,pwd:password});
 
     btn.disabled=false;
     btn.textContent='登入';
@@ -180,34 +194,36 @@ input{width:100%;border:0;outline:0;border-radius:16px;background:#f3f4f6;paddin
 
     saveLogin(res,id);
     toast('登入成功，前往員工頁');
-    setTimeout(function(){ location.replace('employee_home.html?v=12'); },250);
+
+    setTimeout(function(){ location.replace(LOGIN_TARGET); },250);
   }
 
   async function forgotPassword(){
     var id=cleanId(document.getElementById('loginId').value);
     if(!id){ toast('請先輸入員工編號'); return; }
-    var res=await postAction('requestPasswordReset',{id:id,employeeId:id,account:id});
+    var res=await postAction('requestPasswordReset',{id:id,employeeId:id,employee_id:id,account:id});
     toast((res && (res.message || res.msg)) || (res && res.ok ? '已送出重設申請' : '送出失敗'));
   }
 
   function fillSavedId(){
     clearBadLoginCache();
-    var saved=cleanId(localStorage.getItem('ang_employee_id')||localStorage.getItem('emp_logged_in')||localStorage.getItem('loginId')||'');
+    var saved=cleanId(localStorage.getItem('ang_employee_id')||localStorage.getItem('emp_logged_in')||localStorage.getItem('loginId')||localStorage.getItem('employeeId')||'');
     if(saved) document.getElementById('loginId').value=saved;
   }
 
   document.getElementById('loginBtn').addEventListener('click',doLogin);
-  document.getElementById('activateBtn').addEventListener('click',function(){ location.href='activate.html?v=12'; });
+  document.getElementById('activateBtn').addEventListener('click',function(){ location.href='activate.html?v=15'; });
   document.getElementById('forgotBtn').addEventListener('click',forgotPassword);
   document.getElementById('loginPassword').addEventListener('keydown',function(e){ if(e.key==='Enter') doLogin(); });
   document.getElementById('loginId').addEventListener('keydown',function(e){ if(e.key==='Enter') document.getElementById('loginPassword').focus(); });
+
   fillSavedId();
 
   if(location.search.indexOf('debug=1')>=0){
     var box=document.getElementById('debugBox');
     box.style.display='block';
     setInterval(function(){
-      box.textContent='目前欄位讀取：\n員工編號=' + document.getElementById('loginId').value + '\n清理後=' + cleanId(document.getElementById('loginId').value) + '\n已存=' + localStorage.getItem('ang_employee_id');
+      box.textContent='員工編號=' + document.getElementById('loginId').value + '\n清理後=' + cleanId(document.getElementById('loginId').value) + '\n已存=' + localStorage.getItem('ang_employee_id') + '\n角色=' + localStorage.getItem('ang_employee_role') + '\n跳轉=' + LOGIN_TARGET;
     },500);
   }
 })();
