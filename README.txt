@@ -27,3 +27,6 @@ ANG HR Plus｜GitHub Pages 前端覆蓋包
 注意：
 本次對話只拿到 employee.html、js_idle.html、HR 系統整理.txt，沒有拿到完整 GAS「程式碼.js」與三個 repo 的完整原檔。
 所以這包是「GitHub 前端核心修正版」，不是完整 GAS 後端覆蓋包。
+
+
+更新：登入頁已精簡，只保留員工編號；前端僅固定 Creator=ANG0603，其餘角色不再寫死。

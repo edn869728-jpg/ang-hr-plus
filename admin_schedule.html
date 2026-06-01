@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-  <title>ANG HR Plus｜排班管理</title>
+  <title>ANG HR Plus｜薪資管理</title>
   <link rel="manifest" href="manifest.webmanifest">
   <style>
 :root{
@@ -82,8 +82,8 @@ button{cursor:pointer;}
       </div>
       <div class="pill">進階版</div>
     </header>
-    <section class="hero"><h2>📅 排班管理</h2><div class="sub">目前登入：<strong id="welcomeName">員工</strong>｜員工 ID：<strong id="employeeIdText">-</strong></div></section>
-    <section class="grid"><div class="card span-12"><div class="card-title">📅 排班管理</div><div class="notice">此頁已建立，按鈕與導航會保留員工 ID。後續接上 GAS 後端函式即可運作。</div></div></section>
+    <section class="hero"><h2>💰 薪資管理</h2><div class="sub">目前登入：<strong id="welcomeName">員工</strong>｜員工 ID：<strong id="employeeIdText">-</strong></div></section>
+    <section class="grid"><div class="card span-12"><div class="card-title">💰 薪資管理</div><div class="notice">此頁已建立，按鈕與導航會保留員工 ID。後續接上 GAS 後端函式即可運作。</div></div></section>
   </main>
   <div id="toast" class="toast"></div>
   <script src="config.js"></script>
@@ -95,8 +95,8 @@ button{cursor:pointer;}
       var auth = ANGAuth.requireLogin();
       if (!auth) return;
       ANGApp.renderShellUser(auth);
-      ANGApp.bottomNav('admin_schedule');
-      ANGApp.bindNav('admin_schedule');
+      ANGApp.bottomNav('admin_salary');
+      ANGApp.bindNav('admin_salary');
     });
   </script>
 </body>

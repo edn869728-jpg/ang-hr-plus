@@ -26,12 +26,8 @@ window.ANG_HR_CONFIG = {
     "admin_notice": "admin_notice.html"
   },
   "creatorId": "ANG0603",
-  "managerIds": [
-    "ANG0606"
-  ],
-  "adminIds": [
-    "ANG0601"
-  ],
+  "managerIds": [],
+  "adminIds": [],
   "themeColors": [
     "#FF87E0",
     "#CCA4FF",

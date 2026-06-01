@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-  <title>ANG HR Plus｜登入</title>
+  <title>ANG HR Plus</title>
   <link rel="manifest" href="manifest.webmanifest">
   <style>
 :root{
@@ -82,41 +82,24 @@ button{cursor:pointer;}
       </div>
       <div class="pill">進階版</div>
     </header>
-    <section class="hero">
-      <h2>登入 ANG HR</h2>
-      <div class="sub">輸入員工編號即可進入系統。支援 ANG0603、0603、上線ANG0603 這類格式，系統會自動轉成 ANG 編號。</div>
-    </section>
 
     <section class="grid">
-      <div class="card span-7">
+      <div class="card span-12">
         <div class="card-title">🔐 員工登入</div>
         <form id="loginForm">
           <div class="form-row">
             <label>員工編號</label>
-            <input class="input" id="loginId" autocomplete="username" placeholder="例如 ANG0603 或 0603" required>
-          </div>
-          <div class="form-row">
-            <label>顯示名稱（可空白）</label>
-            <input class="input" id="loginName" placeholder="例如 小米">
-          </div>
-          <div class="form-row">
-            <label>Token（有後端驗證時再填，可空白）</label>
-            <input class="input" id="loginToken" autocomplete="current-password" placeholder="可留空">
+            <input class="input" id="loginId" autocomplete="username" placeholder="員工編號" required>
           </div>
           <div class="row">
             <button class="btn primary" type="submit">登入員工首頁</button>
             <button class="btn gray" type="button" id="clearBtn">清除登入</button>
           </div>
         </form>
-        <div class="notice" style="margin-top:14px;">Creator 固定為 ANG0603；ANG0606 預設 Manager；ANG0601 預設 Admin。其他編號預設為 Employee。</div>
-      </div>
-      <div class="card span-5">
-        <div class="card-title">📦 版本內容</div>
-        <div class="list"><div class="list-item">✅ 員工登入</div><div class="list-item">✅ 打卡中心</div><div class="list-item">✅ 薪資查詢</div><div class="list-item">✅ 資料上傳</div><div class="list-item">✅ 排班月曆</div></div>
-        <div class="notice" style="margin-top:14px;">Plus 適合需要排班、請假與基礎審核的團隊。</div>
       </div>
     </section>
   </main>
+
   <div id="toast" class="toast"></div>
   <script src="config.js"></script>
   <script src="assets/auth.js"></script>
@@ -127,18 +110,20 @@ button{cursor:pointer;}
       e.preventDefault();
       var id = ANGAuth.normalizeId(document.getElementById('loginId').value);
       if (!id) { ANGAuth.toast('請輸入員工編號'); return; }
-      var auth = ANGAuth.save({ id:id, name:document.getElementById('loginName').value || id, token:document.getElementById('loginToken').value });
-      ANGAuth.toast('登入成功，前往員工首頁');
-      setTimeout(function(){ ANGAuth.go('employee'); }, 300);
+      ANGAuth.save({ id:id, name:id, token:'' });
+      ANGAuth.toast('登入成功');
+      setTimeout(function(){ ANGAuth.go('employee'); }, 250);
     });
-    document.getElementById('clearBtn').addEventListener('click', function(){ ANGAuth.clear(); ANGAuth.toast('已清除登入資料'); });
+
+    document.getElementById('clearBtn').addEventListener('click', function(){
+      ANGAuth.clear();
+      document.getElementById('loginId').value = '';
+      ANGAuth.toast('已清除登入資料');
+    });
+
     (function preload(){
       var auth = ANGAuth.get();
-      if (auth) {
-        document.getElementById('loginId').value = auth.id || '';
-        document.getElementById('loginName').value = auth.name || '';
-        document.getElementById('loginToken').value = auth.token || '';
-      }
+      if (auth && auth.id) document.getElementById('loginId').value = auth.id;
     })();
   </script>
 </body>
