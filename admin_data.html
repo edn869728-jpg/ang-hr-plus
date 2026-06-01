@@ -1,29 +1,12 @@
 
 (function(){
   'use strict';
-  var timer;
-  var idleLimit = 15 * 60 * 1000;
-  function performAutoLogout(){
-    try {
-      if (window.ANGAuth) {
-        ANGAuth.clear();
-        ANGAuth.toast('已閒置 15 分鐘，系統已自動登出。');
-        setTimeout(function(){ ANGAuth.go('login', null, {noAuth:true}); }, 650);
-        return;
-      }
-      ['isLoggedIn','loginId','emp_logged_in','emp_name','loginToken','authToken'].forEach(function(k){ localStorage.removeItem(k); });
-      var base = window.location.pathname.replace(/[^\/]*$/, 'login.html');
-      window.top.location.href = base;
-    } catch(e) {
-      window.location.href = 'login.html';
-    }
+  var timer, idleLimit = 15 * 60 * 1000;
+  function logout(){
+    try { if (window.ANGDeviceAuth) { ANGDeviceAuth.toast('已閒置 15 分鐘，系統已自動登出。'); setTimeout(function(){ANGDeviceAuth.logout()},650); return; } } catch(e) {}
+    window.location.href = 'login.html';
   }
-  function resetIdleTimer(){
-    if (timer) clearTimeout(timer);
-    timer = setTimeout(performAutoLogout, idleLimit);
-  }
-  ['mousedown','mousemove','keydown','scroll','touchstart','click','visibilitychange'].forEach(function(eventName){
-    document.addEventListener(eventName, resetIdleTimer, true);
-  });
-  resetIdleTimer();
+  function reset(){ if(timer) clearTimeout(timer); timer = setTimeout(logout, idleLimit); }
+  ['mousedown','mousemove','keydown','scroll','touchstart','click','visibilitychange'].forEach(function(e){document.addEventListener(e,reset,true)});
+  reset();
 })();
