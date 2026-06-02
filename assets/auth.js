@@ -257,7 +257,7 @@
     if (roleGroup === 'admin') {
       var r = cleanRole(user.role);
       if (!(r === 'admin' || r === 'manager' || r === 'creator')) {
-        location.replace('employee_home.html?v=' + Date.now());
+        location.replace('employee_home.htm?v=' + Date.now());
         return null;
       }
     }
@@ -266,7 +266,8 @@
 
   function buildUrl(file) {
     var u = getUser() || {};
-    var url = new URL(file || 'employee_home.html', window.location.href);
+    var fname = file || 'employee_home.htm';
+    var url = new URL(fname, window.location.href);
     if (u.id) url.searchParams.set('id', u.id);
     if (u.token) url.searchParams.set('token', u.token);
     if (u.device_id) url.searchParams.set('device_id', u.device_id);
@@ -281,11 +282,11 @@
   function goHome() {
     var u = getUser();
     var isAdmin = u && ['admin','manager','creator'].indexOf(cleanRole(u.role)) >= 0;
-    location.href = buildUrl(isAdmin ? 'admin_home.html' : 'employee_home.html');
+    location.href = buildUrl(isAdmin ? 'admin_home.html' : 'employee_home.htm');
   }
 
   function goPage(file) {
-    location.href = buildUrl(file || 'employee_home.html');
+    location.href = buildUrl(file || 'employee_home.htm');
   }
 
   bootstrapFromQuery();
