@@ -1,130 +1,24 @@
-<!DOCTYPE html>
-<html lang="zh-Hant">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
-  <title>ANG HR Plus</title>
-  <link rel="manifest" href="manifest.webmanifest">
-  <style>
-:root{
-  --accent:#8089FF;
-  --accent2:#59DDFF;
-  --accent-soft:rgba(255,135,224,.14);
-  --bg:#f6f7fb;
-  --card:#ffffff;
-  --text:#111827;
-  --muted:#6b7280;
-  --line:#e5e7eb;
-  --shadow:0 16px 40px rgba(15,23,42,.08);
-  --radius:26px;
-}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 16% 0%,rgba(255,135,224,.20),transparent 28%),radial-gradient(circle at 90% 10%,rgba(89,221,255,.18),transparent 28%),var(--bg);}
-body{padding-bottom:96px;}
-button,input,select,textarea{font:inherit;}
-button{cursor:pointer;}
-.app-shell{width:min(1080px,100%);margin:0 auto;padding:18px 16px 28px;}
-.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px;}
-.brand{display:flex;align-items:center;gap:12px;min-width:0;}
-.logo-mark{width:46px;height:46px;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 14px 28px rgba(15,23,42,.14);display:grid;place-items:center;color:#fff;font-size:22px;font-weight:950;flex:0 0 auto;}
-.brand h1{font-size:20px;line-height:1.12;margin:0;font-weight:950;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.brand p{margin:3px 0 0;color:var(--muted);font-size:12px;font-weight:800;}
-.pill{border:1px solid rgba(17,24,39,.08);background:rgba(255,255,255,.72);backdrop-filter:blur(12px);border-radius:999px;padding:9px 12px;font-size:12px;font-weight:950;color:#374151;white-space:nowrap;box-shadow:0 8px 18px rgba(15,23,42,.05);}
-.hero{position:relative;overflow:hidden;border-radius:32px;padding:24px 20px;background:linear-gradient(135deg,#fff 0%,#f7f8ff 56%,rgba(255,255,255,.92) 100%);box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.88);margin-bottom:16px;}
-.hero:after{content:"";position:absolute;right:-46px;top:-46px;width:160px;height:160px;border-radius:999px;background:linear-gradient(135deg,rgba(255,135,224,.32),rgba(89,221,255,.25));}
-.hero h2{position:relative;margin:0 0 8px;font-size:30px;line-height:1.15;font-weight:950;letter-spacing:-.03em;}
-.hero .sub{position:relative;color:var(--muted);line-height:1.65;font-size:14px;font-weight:700;max-width:720px;}
-.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px;}
-.card{background:rgba(255,255,255,.86);border:1px solid rgba(255,255,255,.9);box-shadow:var(--shadow);border-radius:var(--radius);padding:18px;min-width:0;}
-.card.span-3{grid-column:span 3;}.card.span-4{grid-column:span 4;}.card.span-5{grid-column:span 5;}.card.span-6{grid-column:span 6;}.card.span-7{grid-column:span 7;}.card.span-8{grid-column:span 8;}.card.span-12{grid-column:span 12;}
-.card-title{font-size:16px;font-weight:950;margin:0 0 12px;display:flex;align-items:center;gap:8px;}
-.big{font-size:28px;line-height:1.1;font-weight:950;letter-spacing:-.03em;}
-.muted{color:var(--muted);font-size:13px;line-height:1.62;font-weight:700;}
-.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px;}
-.btn{border:0;border-radius:18px;background:#111827;color:#fff;padding:12px 15px;font-weight:950;font-size:14px;box-shadow:0 12px 24px rgba(15,23,42,.14);}
-.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));}
-.btn.light{background:var(--accent-soft);color:#312e81;box-shadow:none;}
-.btn.gray{background:#f3f4f6;color:#111827;box-shadow:none;}
-.btn.danger{background:#fee2e2;color:#991b1b;box-shadow:none;}
-.btn:disabled{opacity:.55;cursor:not-allowed;}
-.input{width:100%;border:1px solid var(--line);border-radius:18px;padding:13px 14px;background:#fff;font-weight:850;outline:none;}
-.input:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft);}
-.form-row{display:grid;gap:8px;margin-bottom:12px;}
-.form-row label{font-size:12px;color:#6b7280;font-weight:950;}
-.list{display:flex;flex-direction:column;gap:10px;}
-.list-item{border-radius:18px;background:#f8fafc;border:1px solid #edf2f7;padding:12px 13px;font-size:13px;line-height:1.55;font-weight:750;}
-.empty{padding:18px;border-radius:18px;background:#fafafa;border:1px dashed #d1d5db;color:#6b7280;text-align:center;font-size:13px;font-weight:800;}
-.quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;}
-.quick{border:1px solid #edf2f7;border-radius:20px;background:#fff;padding:14px;min-height:82px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 8px 18px rgba(15,23,42,.04);}
-.quick .ico{font-size:22px;}.quick strong{font-size:14px;}.quick span{font-size:12px;color:var(--muted);font-weight:800;}
-.notice{border-radius:22px;background:linear-gradient(135deg,var(--accent-soft),rgba(89,221,255,.10));border:1px solid rgba(255,255,255,.86);padding:14px;font-size:13px;color:#374151;font-weight:800;line-height:1.65;}
-.bottom-nav{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:min(620px,calc(100% - 22px));height:72px;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.9);border-radius:28px;box-shadow:0 18px 44px rgba(15,23,42,.16);display:grid;grid-template-columns:repeat(5,1fr);align-items:end;padding:8px 8px 10px;z-index:20;}
-.nav-btn{height:52px;border:0;background:transparent;color:#64748b;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;font-weight:950;}
-.nav-btn .nav-ico{font-size:20px;line-height:1;}
-.nav-btn.active{color:#111827;background:var(--accent-soft);}
-.nav-btn.home{height:76px;margin-top:-26px;border-radius:24px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 16px 30px rgba(15,23,42,.18);}
-.nav-btn.home .nav-ico{font-size:27px;}
-.toast{position:fixed;left:50%;bottom:104px;transform:translateX(-50%);max-width:calc(100% - 28px);padding:12px 14px;border-radius:18px;background:#111827;color:#fff;font-size:13px;font-weight:850;box-shadow:0 14px 28px rgba(15,23,42,.20);z-index:40;display:none;}
-.table{width:100%;border-collapse:separate;border-spacing:0 8px;font-size:13px;}.table th{color:#6b7280;text-align:left;font-size:12px;padding:0 8px;font-weight:950;}.table td{background:#fff;border-top:1px solid #edf2f7;border-bottom:1px solid #edf2f7;padding:12px 8px;font-weight:800;}.table td:first-child{border-left:1px solid #edf2f7;border-radius:16px 0 0 16px;}.table td:last-child{border-right:1px solid #edf2f7;border-radius:0 16px 16px 0;}
-@media(max-width:840px){.app-shell{padding:14px 12px 28px}.hero h2{font-size:26px}.grid{grid-template-columns:1fr}.card.span-3,.card.span-4,.card.span-5,.card.span-6,.card.span-7,.card.span-8,.card.span-12{grid-column:1}.quick-grid{grid-template-columns:1fr 1fr}.brand h1{font-size:18px}.pill{display:none}.hero{border-radius:28px}.bottom-nav{height:70px;border-radius:26px}.nav-btn{font-size:10px}.nav-btn.home{height:74px}}
-@media(max-width:420px){.quick-grid{grid-template-columns:1fr}.hero h2{font-size:24px}.big{font-size:24px}.topbar{align-items:flex-start}.logo-mark{width:42px;height:42px;border-radius:16px}.card{padding:16px}}
-</style>
-</head>
-<body>
-  <main class="app-shell">
-    <header class="topbar">
-      <div class="brand">
-        <div class="logo-mark">A</div>
-        <div>
-          <h1>ANG HR Plus</h1>
-          <p id="versionName">進階版｜GitHub Pages 前端</p>
-        </div>
-      </div>
-      <div class="pill">進階版</div>
-    </header>
+(function(window, document){
+  'use strict';
+  var cfg = window.ANG_HR_CONFIG || {};
+  var minutes = Number(cfg.idleMinutes || 15);
+  var limit = Math.max(1, minutes) * 60 * 1000;
+  var timer = null;
+  var enabled = true;
 
-    <section class="grid">
-      <div class="card span-12">
-        <div class="card-title">🔐 員工登入</div>
-        <form id="loginForm">
-          <div class="form-row">
-            <label>員工編號</label>
-            <input class="input" id="loginId" autocomplete="username" placeholder="員工編號" required>
-          </div>
-          <div class="row">
-            <button class="btn primary" type="submit">登入員工首頁</button>
-            <button class="btn gray" type="button" id="clearBtn">清除登入</button>
-          </div>
-        </form>
-      </div>
-    </section>
-  </main>
-
-  <div id="toast" class="toast"></div>
-  <script src="config.js"></script>
-  <script src="assets/auth.js"></script>
-  <script src="assets/app.js"></script>
-  <script src="assets/js_idle.js"></script>
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', function(e){
-      e.preventDefault();
-      var id = ANGAuth.normalizeId(document.getElementById('loginId').value);
-      if (!id) { ANGAuth.toast('請輸入員工編號'); return; }
-      ANGAuth.save({ id:id, name:id, token:'' });
-      ANGAuth.toast('登入成功');
-      setTimeout(function(){ ANGAuth.go('employee'); }, 250);
-    });
-
-    document.getElementById('clearBtn').addEventListener('click', function(){
-      ANGAuth.clear();
-      document.getElementById('loginId').value = '';
-      ANGAuth.toast('已清除登入資料');
-    });
-
-    (function preload(){
-      var auth = ANGAuth.get();
-      if (auth && auth.id) document.getElementById('loginId').value = auth.id;
-    })();
-  </script>
-</body>
-</html>
+  function hasLogin(){ return !!(window.ANGAuth && ANGAuth.isLoggedIn && ANGAuth.isLoggedIn()); }
+  function reset(){
+    if (!enabled) return;
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(function(){
+      if (!hasLogin()) return;
+      try { alert('🔒 已閒置超過 ' + minutes + ' 分鐘，系統將自動登出。'); } catch(err) {}
+      if (window.ANGAuth && ANGAuth.logout) ANGAuth.logout();
+    }, limit);
+  }
+  ['mousedown','mousemove','keypress','keydown','scroll','touchstart','click','visibilitychange'].forEach(function(evt){
+    document.addEventListener(evt, reset, true);
+  });
+  window.ANGIdle = { reset:reset, stop:function(){enabled=false;if(timer)clearTimeout(timer);}, start:function(){enabled=true;reset();} };
+  reset();
+})(window, document);
