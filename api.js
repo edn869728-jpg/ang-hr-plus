@@ -1,15 +1,30 @@
-(function(window){
-  'use strict';
-  window.ANG_HR_CONFIG = window.ANG_HR_CONFIG || {};
-
-  /*
-    v4 預設不在 GitHub Pages 前端硬寫 GAS URL。
-    建議：
-    1. App 登入連結帶 api=https://script.google.com/macros/s/.../exec
-    2. 或之後改成 Cloudflare Worker /api/proxy
-    3. 測試階段若留空，只有 act_test / test 開頭的測試啟用碼會走 Demo 模式。
-  */
-  window.ANG_HR_CONFIG.apiUrl = window.ANG_HR_CONFIG.apiUrl || '';
-  window.ANG_HR_CONFIG.proxyUrl = window.ANG_HR_CONFIG.proxyUrl || '';
-  window.ANG_HR_CONFIG.idleMinutes = 15;
-})(window);
+window.ANG_HR_FEATURES={
+  "clock": 1,
+  "clock_fix": 1,
+  "leave": 1,
+  "salary": 1,
+  "notice": 1,
+  "admin": 1,
+  "review": 1,
+  "people": 1,
+  "schedule": 1,
+  "upload": 1,
+  "admin_schedule": 1,
+  "admin_salary": 1,
+  "settings": 0,
+  "data": 0,
+  "drive": 0,
+  "api": 0,
+  "multi_review": 0,
+  "ios_shortcut": 1,
+  "field_clock": 1,
+  "overtime_clock": 1,
+  "branches": 5,
+  "employees": 25
+};
+window.ANG_HR_PLAN={
+  "edition": "plus",
+  "name": "Plus",
+  "tagline": "標準店家｜多店排班薪資版",
+  "included": "5 店｜25 人"
+};
