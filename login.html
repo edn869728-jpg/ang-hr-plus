@@ -1,42 +1,61 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"><title>ANG HR Plus｜裝置登入</title><link rel="manifest" href="manifest.webmanifest"><style>
-:root{--accent:#8089FF;--accent2:#59DDFF;--accent-soft:rgba(128,137,255,.14);--bg:#f6f7fb;--card:#fff;--text:#111827;--muted:#6b7280;--line:#e5e7eb;--shadow:0 16px 42px rgba(15,23,42,.09);--radius:26px;}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;min-height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",Arial,sans-serif;color:var(--text);background:radial-gradient(circle at 12% 0%,rgba(128,137,255,.22),transparent 28%),radial-gradient(circle at 94% 6%,rgba(89,221,255,.20),transparent 30%),var(--bg)}body{padding-bottom:98px}button,input,select,textarea{font:inherit}button{cursor:pointer}.app-shell{width:min(1080px,100%);margin:0 auto;padding:18px 16px 30px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:16px}.brand{display:flex;align-items:center;gap:12px;min-width:0}.logo-mark{width:46px;height:46px;border-radius:18px;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 14px 28px rgba(15,23,42,.14);display:grid;place-items:center;color:#fff;font-size:22px;font-weight:950;flex:0 0 auto}.brand h1{font-size:20px;line-height:1.12;margin:0;font-weight:950;letter-spacing:-.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.brand p{margin:3px 0 0;color:var(--muted);font-size:12px;font-weight:850}.pill{border:1px solid rgba(17,24,39,.08);background:rgba(255,255,255,.78);backdrop-filter:blur(12px);border-radius:999px;padding:9px 12px;font-size:12px;font-weight:950;color:#374151;white-space:nowrap;box-shadow:0 8px 18px rgba(15,23,42,.05)}.hero{position:relative;overflow:hidden;border-radius:32px;padding:24px 20px;background:linear-gradient(135deg,#fff 0%,#f7f8ff 56%,rgba(255,255,255,.94) 100%);box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.9);margin-bottom:16px}.hero:after{content:"";position:absolute;right:-48px;top:-48px;width:166px;height:166px;border-radius:999px;background:linear-gradient(135deg,rgba(128,137,255,.30),rgba(89,221,255,.25))}.hero h2{position:relative;margin:0 0 8px;font-size:30px;line-height:1.15;font-weight:950;letter-spacing:-.03em}.hero .sub{position:relative;color:var(--muted);line-height:1.65;font-size:14px;font-weight:750;max-width:760px}.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}.card{background:rgba(255,255,255,.88);border:1px solid rgba(255,255,255,.92);box-shadow:var(--shadow);border-radius:var(--radius);padding:18px;min-width:0}.span-3{grid-column:span 3}.span-4{grid-column:span 4}.span-5{grid-column:span 5}.span-6{grid-column:span 6}.span-7{grid-column:span 7}.span-8{grid-column:span 8}.span-12{grid-column:span 12}.card-title{font-size:16px;font-weight:950;margin:0 0 12px;display:flex;align-items:center;gap:8px}.big{font-size:28px;line-height:1.1;font-weight:950;letter-spacing:-.03em}.muted{color:var(--muted);font-size:13px;line-height:1.62;font-weight:750}.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px}.btn{border:0;border-radius:18px;background:#111827;color:#fff;padding:12px 15px;font-weight:950;font-size:14px;box-shadow:0 12px 24px rgba(15,23,42,.14)}.btn.primary{background:linear-gradient(135deg,var(--accent),var(--accent2))}.btn.light{background:var(--accent-soft);color:#312e81;box-shadow:none}.btn.gray{background:#f3f4f6;color:#111827;box-shadow:none}.btn.danger{background:#fee2e2;color:#991b1b;box-shadow:none}.btn:disabled{opacity:.55;cursor:not-allowed}.input{width:100%;border:1px solid var(--line);border-radius:18px;padding:13px 14px;background:#fff;font-weight:850;outline:none}.input:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}.form-row{display:grid;gap:8px;margin-bottom:12px}.form-row label{font-size:12px;color:#6b7280;font-weight:950}.list{display:flex;flex-direction:column;gap:10px}.list-item{border-radius:18px;background:#f8fafc;border:1px solid #edf2f7;padding:12px 13px;font-size:13px;line-height:1.55;font-weight:800}.empty{padding:18px;border-radius:18px;background:#fafafa;border:1px dashed #d1d5db;color:#6b7280;text-align:center;font-size:13px;font-weight:850}.quick-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.quick{border:1px solid #edf2f7;border-radius:20px;background:#fff;padding:14px;min-height:82px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:0 8px 18px rgba(15,23,42,.04);text-align:left}.quick .ico{font-size:22px}.quick strong{font-size:14px}.quick span{font-size:12px;color:var(--muted);font-weight:850}.notice{border-radius:22px;background:linear-gradient(135deg,var(--accent-soft),rgba(89,221,255,.10));border:1px solid rgba(255,255,255,.86);padding:14px;font-size:13px;color:#374151;font-weight:850;line-height:1.65}.codebox{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#0f172a;color:#e5e7eb;border-radius:18px;padding:13px;overflow:auto;font-size:12px;line-height:1.5;word-break:break-all}.bottom-nav{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:min(620px,calc(100% - 22px));height:72px;background:rgba(255,255,255,.92);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.9);border-radius:28px;box-shadow:0 18px 44px rgba(15,23,42,.16);display:grid;grid-template-columns:repeat(5,1fr);align-items:end;padding:8px 8px 10px;z-index:20}.nav-btn{height:52px;border:0;background:transparent;color:#64748b;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;font-size:11px;font-weight:950}.nav-btn .nav-ico{font-size:20px;line-height:1}.nav-btn.active{color:#111827;background:var(--accent-soft)}.nav-btn.home{height:76px;margin-top:-26px;border-radius:24px;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;box-shadow:0 16px 30px rgba(15,23,42,.18)}.nav-btn.home .nav-ico{font-size:27px}.toast{position:fixed;left:50%;bottom:104px;transform:translateX(-50%);max-width:calc(100% - 28px);padding:12px 14px;border-radius:18px;background:#111827;color:#fff;font-size:13px;font-weight:850;box-shadow:0 14px 28px rgba(15,23,42,.20);z-index:40;display:none}.status-ok{color:#166534}.status-warn{color:#92400e}.status-bad{color:#991b1b}@media(max-width:840px){.app-shell{padding:14px 12px 30px}.hero h2{font-size:26px}.grid{grid-template-columns:1fr}.span-3,.span-4,.span-5,.span-6,.span-7,.span-8,.span-12{grid-column:1}.quick-grid{grid-template-columns:1fr 1fr}.brand h1{font-size:18px}.pill{display:none}.hero{border-radius:28px}.bottom-nav{height:70px;border-radius:26px}.nav-btn{font-size:10px}.nav-btn.home{height:74px}}@media(max-width:420px){.quick-grid{grid-template-columns:1fr}.hero h2{font-size:24px}.big{font-size:24px}.topbar{align-items:flex-start}.logo-mark{width:42px;height:42px;border-radius:16px}.card{padding:16px}}
-</style></head><body>
-  <main class="app-shell"><header class="topbar"><div class="brand"><div class="logo-mark">A</div><div><h1>ANG HR Plus</h1><p>進階版｜device login v3</p></div></div><div class="pill">進階版</div></header>
-    <section class="hero"><h2>第一次點專屬連結登入</h2><div class="sub">這版已改成免打帳密。員工第一次只要打開管理員給的連結，系統會用 <strong>id + token + device_id</strong> 綁定本機；之後開 App 會自動登入。</div></section>
-    <section class="grid">
-      <div class="card span-7"><div class="card-title">🔐 裝置登入狀態</div><div id="statusBox" class="notice">正在檢查登入狀態...</div><div class="row"><button class="btn primary" id="goBtn" type="button">進入員工首頁</button><button class="btn gray" id="verifyBtn" type="button">重新驗證</button><button class="btn danger" id="clearBtn" type="button">清除本機登入</button></div></div>
-      <div class="card span-5"><div class="card-title">📱 本機裝置</div><div class="muted">Device ID</div><div id="deviceIdText" class="codebox">-</div><div class="muted" style="margin-top:12px;">員工 ID</div><div class="big" id="employeeIdText">未登入</div><div class="muted" style="margin-top:8px;">Token：<span id="tokenStateText">未登入</span></div></div>
-      <div class="card span-12"><div class="card-title">🔗 沒有專屬連結？</div><div class="notice">請向管理員索取登入連結。連結格式會包含 <strong>?id=ANGxxxx&token=...</strong>。不能只輸入員工 ID，避免別人知道編號就登入。</div><div class="form-row" style="margin-top:12px;"><label>貼上專屬登入連結</label><input id="linkInput" class="input" placeholder="https://.../login.html?id=ANG0603&token=xxxxx"></div><button class="btn light" id="pasteBtn" type="button">使用這個連結登入</button></div>
-    </section>
-  </main><div id="toast" class="toast"></div><script src="config.js"></script>
-  <script src="assets/device_auth.js"></script>
-  <script src="assets/app.js"></script>
-  <script src="assets/js_idle.js"></script>
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+  <title>ANG HR Login</title>
+  <script src="config.js"></script>
+  <script src="assets/auth.js"></script>
+  <style>
+    :root{--bg:#f5f7fb;--card:#fff;--text:#111827;--muted:#6b7280;--c1:#FF87E0;--c2:#CCA4FF;--c3:#8089FF;--c4:#59DDFF;--deep:#8F4C7E;--grad:linear-gradient(135deg,var(--c1),var(--c2),var(--c3),var(--c4))}
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}body{margin:0;min-height:100vh;background:radial-gradient(circle at 20% 0%,rgba(255,135,224,.22),transparent 32%),radial-gradient(circle at 90% 20%,rgba(89,221,255,.28),transparent 34%),var(--bg);font-family:"Arial Rounded MT Bold","PingFang TC","Microsoft JhengHei",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);display:flex;align-items:center;justify-content:center;padding:20px}.wrap{width:min(430px,100%)}.logo{width:82px;height:82px;border-radius:28px;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:900;box-shadow:0 16px 34px rgba(128,137,255,.28);margin:0 auto 14px}.card{background:rgba(255,255,255,.94);backdrop-filter:blur(16px);border-radius:28px;padding:22px;box-shadow:0 18px 44px rgba(0,0,0,.09);border:1px solid rgba(255,255,255,.75)}h1{font-size:24px;margin:0;text-align:center;color:var(--deep);font-weight:900}.sub{text-align:center;color:var(--muted);font-size:13px;line-height:1.6;margin:8px 0 18px;font-weight:800}.label{font-size:13px;font-weight:900;color:var(--muted);margin:12px 0 7px}input{width:100%;height:50px;border:0;outline:0;background:#f3f4f6;border-radius:17px;padding:0 14px;font-size:16px;font-weight:800}button{width:100%;height:52px;border:0;border-radius:18px;background:var(--grad);color:#fff;font-size:16px;font-weight:900;margin-top:18px;box-shadow:0 12px 24px rgba(128,137,255,.18);cursor:pointer}.hint{font-size:12px;line-height:1.6;color:var(--muted);font-weight:800;margin-top:14px;background:#f8fafc;border-radius:16px;padding:12px}.status{font-size:13px;line-height:1.55;margin-top:12px;color:#92400e;background:#fff7ed;border:1px solid #fed7aa;border-radius:16px;padding:11px;font-weight:900;display:none}.status.ok{color:#065f46;background:#ecfdf5;border-color:#a7f3d0}.route{font-size:12px;color:#64748b;line-height:1.5;margin-top:10px;font-weight:800;word-break:break-word}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="logo">ANG</div>
+    <div class="card">
+      <h1>ANG HR 登入</h1>
+      <div class="sub">先確認公司方案，再自動分流到 Free / Basic / Plus / Premium。</div>
+      <div class="label">公司代碼</div>
+      <input id="company_id" autocomplete="organization" placeholder="例如 demo_free_001">
+      <div class="label">員工編號</div>
+      <input id="emp_id" autocomplete="username" placeholder="例如 ANG0603">
+      <div class="label">密碼 / Token</div>
+      <input id="password" type="password" autocomplete="current-password" placeholder="請輸入密碼">
+      <button id="btnLogin" type="button">啟用並登入</button>
+      <div id="status" class="status"></div>
+      <div id="routeInfo" class="route"></div>
+      <div class="hint">Free / Basic 共用 Basic；Trial / Premium 共用 Premium。試用到期未續費會由 Router 自動轉 Free。</div>
+    </div>
+  </div>
   <script>
-    async function refresh(){
-      ANGApp.renderUser();
-      const link = ANGDeviceAuth.readLink();
-      const box = document.getElementById('statusBox');
-      if (link.id && link.token) {
-        box.innerHTML = '偵測到專屬登入連結，正在綁定裝置...';
-        const res = await ANGDeviceAuth.bindFromUrl();
-        ANGApp.renderUser(res.session);
-        box.innerHTML = res.ok ? '<span class="status-ok">✅ 裝置已綁定。</span><br>' + (res.msg || '') : '<span class="status-bad">❌ 綁定失敗。</span><br>' + (res.msg || '');
-        if (res.ok) setTimeout(function(){ANGDeviceAuth.go('employee')},650);
-        return;
-      }
-      const s = ANGDeviceAuth.getSession();
-      if (!s) { box.innerHTML = '<span class="status-warn">尚未登入。</span><br>請使用管理員提供的專屬登入連結。'; return; }
-      box.innerHTML = '已有本機登入資料，正在驗證...';
-      const res = await ANGDeviceAuth.verifySession();
-      ANGApp.renderUser(s);
-      box.innerHTML = res.ok ? '<span class="status-ok">✅ 已驗證，可自動登入。</span><br>' + (res.msg || '') : '<span class="status-bad">❌ 驗證失敗。</span><br>' + (res.msg || '請重新取得專屬連結');
-      if (res.ok) setTimeout(function(){ANGDeviceAuth.go('employee')},650);
-    }
-    document.getElementById('goBtn').onclick=function(){ if(ANGDeviceAuth.getSession()) ANGDeviceAuth.go('employee'); else ANGDeviceAuth.toast('尚未登入，請使用專屬連結'); };
-    document.getElementById('verifyBtn').onclick=refresh;
-    document.getElementById('clearBtn').onclick=function(){ANGDeviceAuth.keepDeviceOnly(); ANGApp.renderUser(); document.getElementById('statusBox').innerHTML='已清除本機登入，保留裝置 ID。';};
-    document.getElementById('pasteBtn').onclick=function(){var v=document.getElementById('linkInput').value.trim(); if(!v) return ANGDeviceAuth.toast('請貼上登入連結'); try{var u=new URL(v); window.location.href='login.html'+u.search;}catch(e){ANGDeviceAuth.toast('連結格式不正確');} };
-    window.addEventListener('load', refresh);
-  </script></body></html>
+    (function(){
+      function qs(id){return document.getElementById(id)}
+      function clean(v){return String(v==null?'':v).trim()}
+      function setStatus(msg, ok){var el=qs('status');el.style.display='block';el.className='status'+(ok?' ok':'');el.textContent=msg}
+      function readQuery(){var q={};try{new URLSearchParams(location.search).forEach(function(v,k){q[k]=v})}catch(e){}return q}
+      var q=readQuery();
+      qs('company_id').value=clean(q.company_id||q.companyId||localStorage.getItem('ang_hr_company_id')||'');
+      qs('emp_id').value=clean(q.id||q.empId||localStorage.getItem('emp_id')||'').toUpperCase();
+      qs('btnLogin').onclick=function(){
+        var btn=qs('btnLogin');
+        btn.disabled=true;btn.textContent='分流與登入中...';
+        setStatus('正在詢問 Router...', false);
+        ANG_HR_ROUTER_AUTH.loginWithRouter({
+          company_id:qs('company_id').value,
+          id:qs('emp_id').value,
+          password:qs('password').value
+        }).then(function(res){
+          if(!res||!res.ok){setStatus((res&&res.message)||'登入失敗',false);btn.disabled=false;btn.textContent='啟用並登入';return;}
+          var route=res.route||ANG_HR_ROUTER_AUTH.getRoute();
+          qs('routeInfo').textContent='方案：'+route.plan+'｜公司：'+(route.company_name||route.company_id)+'｜入口：'+route.frontend_url;
+          setStatus('登入成功，正在進入 '+String(route.plan||'').toUpperCase(), true);
+          ANG_HR_ROUTER_AUTH.showUpgradePromptIfNeeded();
+          setTimeout(function(){location.href=ANG_HR_ROUTER_AUTH.buildEntryUrl(route,res.session)},450);
+        });
+      };
+    })();
+  </script>
+</body>
+</html>
