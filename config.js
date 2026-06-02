@@ -4,7 +4,7 @@
  */
 window.ANG_HR_CONFIG = Object.assign({}, window.ANG_HR_CONFIG || {}, {
   appName: 'ANG HR',
-  routerApiUrl: 'https://script.google.com/macros/s/PASTE_YOUR_ROUTER_GAS_WEB_APP_ID/exec',
+  routerApiUrl: 'https://script.google.com/macros/s/AKfycbzTGuQHY-TDXMqYfvO_679_q9v6mEarKP4wsPaUspJhqv3tWT0Aj4M8FptjuEMOOoUJ5w/exec',
   defaultCompanyId: '',
   defaultEntryPage: 'employee_home',
   storagePrefix: 'ang_hr_',
