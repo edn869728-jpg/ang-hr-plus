@@ -2,64 +2,89 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ANG HR 跳轉中</title>
-<script>
-(function(){
-  var map = {
-    employee: 'employee_home.html',
-    admin: 'admin_home.html',
-    clock: 'employee_clock.html',
-    mysalary: 'employee_salary.html',
-    salary: 'employee_salary.html',
-    upload: 'employee_upload.html',
-    schedule: 'employee_schedule.html',
-    leave: 'employee_schedule.html',
-    review: 'admin_review.html',
-    people: 'admin_people.html',
-    settings: 'admin_settings.html',
-    data: 'admin_data.html',
-    notice: 'admin_notice.html',
-    boss: 'admin_home.html',
-    creator: 'admin_home.html',
-    manager: 'admin_home.html',
-    login: 'login.html',
-    activate: 'activate.html'
-  };
-  var params = new URLSearchParams(location.search);
-  var page = (params.get('page') || 'clock').toLowerCase().trim();
-  var target = map[page] || 'employee_clock.html';
-  var keep = [];
-  ['id','token','role','name'].forEach(function(k){
-    var v = params.get(k);
-    if(v) keep.push(encodeURIComponent(k)+'='+encodeURIComponent(v));
-  });
-  location.replace(target + (keep.length ? '?' + keep.join('&') : '') + '#clean-v7');
-})();
-</script>
-
-<style id="ang-inline-style-v10">
-:root{--bg:#f5f7fb;--card:#fff;--text:#111827;--muted:#6b7280;--c1:#FF87E0;--c2:#CCA4FF;--c3:#8089FF;--c4:#59DDFF;--deep:#8F4C7E;--grad:linear-gradient(135deg,var(--c1),var(--c2),var(--c3),var(--c4))}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);padding:92px 10px 102px}.topbar{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:space-between;padding:8px 12px;box-shadow:0 2px 12px rgba(0,0,0,.05)}.logo{width:72px;height:72px;border-radius:22px;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:24px}.brand{text-align:right}.brand-main{font-weight:900;color:var(--deep);font-size:16px}.brand-sub{font-size:11px;color:#9ca3af;font-weight:800;margin-top:3px}.safe{max-width:980px;margin:0 auto}.hero{background:var(--grad);color:#fff;border-radius:24px;padding:16px;margin-bottom:10px;box-shadow:0 12px 28px rgba(128,137,255,.22)}.hero-top{display:flex;justify-content:space-between;gap:10px}.hello{font-size:23px;font-weight:900}.hello-sub{font-size:12px;font-weight:800;opacity:.93;margin-top:5px}.chip{background:rgba(255,255,255,.18);border-radius:999px;padding:8px 12px;font-size:11px;font-weight:900;white-space:nowrap}.shift{margin-top:12px;background:rgba(255,255,255,.15);border-radius:18px;padding:13px;display:grid;grid-template-columns:1fr 1fr;gap:10px}.shift small{display:block;font-size:11px;font-weight:800}.big{font-size:18px;font-weight:900;margin-top:5px}.card{background:var(--card);border-radius:22px;padding:14px;margin-bottom:10px;box-shadow:0 8px 24px rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.03)}.row{display:flex;justify-content:space-between;gap:8px;align-items:center}.title{font-size:18px;font-weight:900;margin:0 0 10px}.badge{border-radius:999px;background:rgba(255,135,224,.13);color:var(--deep);font-size:11px;font-weight:900;padding:6px 10px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.tile{background:linear-gradient(180deg,#fff,rgba(255,135,224,.06));border:1px solid rgba(255,135,224,.12);border-radius:18px;padding:13px}.tile b{display:block;font-size:15px}.tile span{display:block;color:var(--muted);font-size:14px;margin-top:6px;line-height:1.45}.btn{width:100%;border:0;border-radius:16px;padding:14px 10px;background:var(--grad);color:#fff;font-weight:900;font-size:15px;cursor:pointer}.btn.bigbtn{min-height:74px;font-size:18px}.btn.soft{background:linear-gradient(135deg,rgba(255,135,224,.18),rgba(89,221,255,.28));color:var(--deep);border:1px solid rgba(255,135,224,.18)}input,select,textarea{width:100%;border:0;outline:0;border-radius:16px;background:#f3f4f6;padding:14px 12px;font:inherit;font-size:16px;margin-bottom:10px}textarea{min-height:86px;resize:vertical}.label{display:block;font-size:14px;font-weight:900;color:var(--muted);margin:0 0 7px}.notice{background:linear-gradient(180deg,#fff,rgba(128,137,255,.06));border:1px solid rgba(128,137,255,.12);border-radius:18px;padding:13px;font-size:15px;line-height:1.55;color:#374151}.locked{background:#f8fafc;border:1px dashed #cbd5e1;color:#64748b}.calendar{background:#fff;border-radius:18px;border:1px solid rgba(128,137,255,.12);padding:8px;display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.day{min-height:80px;border-radius:12px;background:#f8fafc;padding:6px;font-size:13px;font-weight:900;overflow:hidden}.day small{display:block;color:#94a3b8;font-size:12px}.event{margin-top:5px;border-radius:8px;background:rgba(128,137,255,.16);color:#4D56B5;padding:4px 5px;font-size:12px;line-height:1.25;font-weight:900}.shift-event{display:flex;align-items:center;gap:4px}.dot{width:7px;height:7px;border-radius:999px;background:var(--c1);flex:0 0 auto}.shift-event .txt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.shift-event.leave{background:#e5e7eb!important;color:#6b7280!important;text-decoration:line-through;opacity:.78}.shift-event.leave .dot{background:#9ca3af!important}.clock-in{background:#dcfce7;color:#047857}.clock-out{background:#fee2e2;color:#b91c1c}.clock-ot{background:#fef3c7;color:#92400e}.clock-fix{background:#ede9fe;color:#6d28d9}.salary-event{background:#dbeafe;color:#1d4ed8}.upload-pending{background:#fef3c7;color:#92400e}.upload-ok{background:#dcfce7;color:#047857}.upload-warn{background:#fee2e2;color:#b91c1c}.legend{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.legend span{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:900;color:#6b7280;background:#f8fafc;border-radius:999px;padding:6px 9px}.week-row{display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;margin-top:10px}.week-row .btn{flex:0 0 74px;min-width:74px;padding:13px 8px}.home-action-main{display:grid;grid-template-columns:1fr 1fr;gap:10px}.home-status{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.home-status .tile{text-align:center}.mini-action-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}.mini-action{border:0;border-radius:18px;background:linear-gradient(135deg,rgba(255,135,224,.16),rgba(89,221,255,.24));color:var(--deep);padding:13px 6px;font-size:14px;font-weight:900;min-height:64px}.mini-action small{display:block;color:#6b7280;font-size:10px;margin-top:4px}.todo-grid{display:grid;gap:8px}.todo-item{display:flex;align-items:center;justify-content:space-between;gap:10px;border-radius:16px;background:linear-gradient(180deg,#fff,rgba(128,137,255,.06));border:1px solid rgba(128,137,255,.12);padding:12px}.todo-item b{font-size:14px}.todo-item span{font-size:12px;color:var(--muted);font-weight:800}.todo-pill{flex:0 0 auto;border-radius:999px;background:rgba(255,135,224,.14);color:var(--deep);padding:6px 9px;font-size:11px;font-weight:900}.table-wrap{overflow:auto;border-radius:18px;border:1px solid #eef2ff}table{border-collapse:collapse;width:100%;min-width:620px;background:#fff}th,td{padding:12px;border-bottom:1px solid #eef2ff;text-align:left;font-size:13px}th{background:#f8fafc;color:#64748b;font-weight:900}.nav{position:fixed;left:0;right:0;bottom:0;z-index:60;display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);padding:7px 4px calc(7px + env(safe-area-inset-bottom));border-radius:20px 20px 0 0;box-shadow:0 -5px 18px rgba(0,0,0,.08)}.nav button{border:0;border-radius:16px;background:linear-gradient(180deg,#fff,rgba(255,135,224,.08));min-height:58px;color:#6b7280;font-weight:900;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px}.nav i{font-size:19px}.nav span{font-size:11px}.nav button.active{color:var(--deep);background:linear-gradient(135deg,rgba(255,135,224,.18),rgba(89,221,255,.3))}.nav .main{transform:translateY(-12px);min-height:66px;border-radius:999px;background:var(--grad);color:#fff}.toast{position:fixed;left:16px;right:16px;bottom:96px;z-index:100;background:#111827;color:#fff;padding:12px 14px;border-radius:16px;font-size:14px;font-weight:800}.hidden{display:none!important}.active-type{outline:3px solid rgba(128,137,255,.45)}@media(min-width:760px){.day{min-height:100px}.event{font-size:13px}.week-row .btn{flex:1 1 0}}@media(max-width:390px){body{padding-left:6px;padding-right:6px}.card{padding:12px}.hello{font-size:21px}.nav span{font-size:10px}.day{min-height:72px;font-size:11px}.event{font-size:10px}.mini-action{font-size:13px}}
-
-/* v10 inline style fix */
-input, select, textarea {
-  -webkit-appearance: none;
-  appearance: none;
-}
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 1000px #f3f4f6 inset !important;
-  box-shadow: 0 0 0 1000px #f3f4f6 inset !important;
-  -webkit-text-fill-color: #111827 !important;
-}
-body {
-  background: #f5f7fb !important;
-}
-
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>ANG HR Premium</title>
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--text:#111827;--muted:#6b7280;--soft:#f3f4f6;--c1:#FF87E0;--c2:#CCA4FF;--c3:#8089FF;--c4:#59DDFF;--deep:#8F4C7E;--grad:linear-gradient(135deg,var(--c1),var(--c2),var(--c3),var(--c4));--ok:#10b981;--warn:#f59e0b;--danger:#ef4444}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);overflow-x:hidden}
+body{padding:92px 8px 100px}
+.topbar{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 12px;box-shadow:0 2px 12px rgba(0,0,0,.05)}
+.logo{width:72px;height:72px;border-radius:22px;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:24px;box-shadow:0 8px 18px rgba(128,137,255,.18)}
+.brand{text-align:right}.brand-title{font-size:16px;font-weight:900;color:var(--deep)}.brand-sub{font-size:11px;color:#9ca3af;font-weight:800;margin-top:3px}
+.safe{max-width:980px;margin:0 auto}.page{display:none}.page.active{display:block;animation:fade .18s ease}@keyframes fade{from{opacity:.5;transform:translateY(4px)}to{opacity:1;transform:none}}
+.hero{background:var(--grad);color:#fff;border-radius:24px;padding:16px;margin-bottom:10px;box-shadow:0 12px 28px rgba(128,137,255,.22)}
+.hero-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.hello{font-size:23px;font-weight:900;line-height:1.1}.hello-sub{font-size:12px;font-weight:800;opacity:.9;margin-top:5px}.chip{background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:8px 12px;font-size:11px;font-weight:900;white-space:nowrap}
+.shift{margin-top:12px;background:rgba(255,255,255,.15);border-radius:18px;padding:13px;display:grid;grid-template-columns:1fr 1fr;gap:10px}.shift small{display:block;font-size:11px;font-weight:800;opacity:.9}.big{font-size:18px;font-weight:900;margin-top:5px}
+.card{background:var(--card);border-radius:22px;padding:14px;margin-bottom:10px;box-shadow:0 8px 24px rgba(0,0,0,.05);border:1px solid rgba(0,0,0,.03);overflow:hidden}
+.row{display:flex;justify-content:space-between;gap:8px;align-items:center}.title{font-size:17px;font-weight:900;margin:0 0 10px}.badge{border-radius:999px;background:rgba(255,135,224,.13);color:var(--deep);font-size:11px;font-weight:900;padding:6px 10px;white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.tile,.notice{background:linear-gradient(180deg,#fff,rgba(255,135,224,.06));border:1px solid rgba(255,135,224,.12);border-radius:18px;padding:12px;line-height:1.5}.tile b{display:block;font-size:13px}.tile span,.muted{display:block;color:var(--muted);font-size:12px;margin-top:6px;line-height:1.45}
+.btn{width:100%;border:0;border-radius:16px;padding:13px 10px;background:var(--grad);color:#fff;font-weight:900;font-size:14px;cursor:pointer;box-shadow:0 8px 18px rgba(128,137,255,.13)}.btn.soft{background:linear-gradient(135deg,rgba(255,135,224,.18),rgba(89,221,255,.28));color:var(--deep);border:1px solid rgba(255,135,224,.18);box-shadow:none}.btn:active,.type-btn:active{transform:scale(.98)}
+input,select,textarea{width:100%;border:0;outline:0;border-radius:16px;background:#f3f4f6;padding:13px 12px;font:inherit;margin-bottom:10px;color:#111827}textarea{min-height:86px;resize:vertical}.label{font-size:13px;color:var(--muted);font-weight:900;margin:2px 0 7px;display:block}
+.type-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.type-btn{border:1px solid rgba(255,135,224,.16);border-radius:16px;background:linear-gradient(180deg,#fff,rgba(255,135,224,.1));padding:11px 5px;font-weight:900;color:#be185d;cursor:pointer}.type-btn.active{background:var(--grad);color:#fff;border-color:transparent}.type-btn small{display:block;font-size:10px;opacity:.8;margin-top:4px}
+.calendar-box{background:#fff;border-radius:18px;padding:8px;min-height:330px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.03)}.fc .fc-toolbar-title{font-size:17px!important;font-weight:900!important;color:var(--deep)}.fc .fc-button-primary{background:var(--grad)!important;border:0!important}.fc-daygrid-day-frame{min-height:72px!important}
+.nav{position:fixed;left:0;right:0;bottom:0;z-index:120;display:grid;grid-template-columns:repeat(5,1fr);gap:2px;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);padding:7px 4px calc(7px + env(safe-area-inset-bottom));border-radius:20px 20px 0 0;box-shadow:0 -5px 18px rgba(0,0,0,.08)}
+.nav button{border:0;border-radius:16px;background:linear-gradient(180deg,#fff,rgba(255,135,224,.08));min-height:56px;color:#6b7280;font-weight:900;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer}.nav i{font-size:18px}.nav span{font-size:10px;line-height:1.1}.nav button.active{color:var(--deep);background:linear-gradient(135deg,rgba(255,135,224,.18),rgba(89,221,255,.3))}.nav .main{transform:translateY(-12px);min-height:64px;border-radius:999px;background:var(--grad);color:#fff;box-shadow:0 10px 20px rgba(128,137,255,.24)}
+.hidden{display:none!important}.need-upgrade{opacity:.55;filter:grayscale(.1)}
+@media(min-width:760px){.desk{display:grid;grid-template-columns:1.05fr .95fr;gap:10px}.nav{padding-left:18px;padding-right:18px}}
+@media(max-width:420px){body{padding-left:6px;padding-right:6px}.card{padding:12px;border-radius:20px}.hello{font-size:20px}.grid4{grid-template-columns:repeat(2,1fr)}.type-grid{grid-template-columns:repeat(2,1fr)}.nav span{font-size:9px}.fc-daygrid-day-frame{min-height:56px!important}}
 </style>
 </head>
-<body style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f7fb;padding:24px;">
-跳轉中...
+<body>
+<header class="topbar"><div class="logo">ANG</div><div class="brand"><div class="brand-title">ANG.lo Engine</div><div class="brand-sub">HR 系統｜Premium</div></div></header>
+<main class="safe">
+<section id="page-home" class="page active">
+  <div class="hero"><div class="hero-top"><div><div class="hello" id="hello">哈囉，員工</div><div class="hello-sub">三種版本外觀一致｜功能依版本開關</div></div><div class="chip">Premium</div></div><div class="shift"><div><small>今日狀態</small><div class="big">待打卡</div></div><div><small>明日班別</small><div class="big">依正式班表</div></div></div></div>
+  <div class="grid"><div class="tile"><b>本週薪資累計</b><span>$0</span></div><div class="tile"><b>本週工時</b><span>0h</span></div><div class="tile"><b>本月薪資累計</b><span>$0</span></div><div class="tile"><b>提醒事項</b><span>目前沒有提醒</span></div></div>
+  <div class="card"><div class="row"><h3 class="title">快捷功能</h3><span class="badge">可操作</span></div><div class="grid4"><button class="btn soft" onclick="nav('schedule')">請假</button><button class="btn soft" onclick="nav('clock')">補打卡</button><button class="btn soft" onclick="nav('salary')">薪資</button><button class="btn soft" onclick="nav('upload')">資料上傳</button></div></div>
+</section>
+<section id="page-schedule" class="page">
+  <div class="card"><div class="row"><h3 class="title">請假排班</h3><span class="badge">有月曆</span></div><div id="cal-schedule" class="calendar-box"></div></div>
+  <div class="card"><h3 class="title">請假申請</h3><div class="type-grid" id="leaveTypeGrid"></div><div class="grid"><div><label class="label">開始日期</label><input id="leaveStartDate" type="date"></div><div><label class="label">結束日期</label><input id="leaveEndDate" type="date"></div></div><div class="grid"><div><label class="label">請假天數</label><input id="leaveDays" type="number" min="0" step="1" value="1"></div><div><label class="label">請假時數</label><input id="leaveHours" type="number" min="0" step="0.5" value="0"></div></div><label class="label">原因</label><textarea id="leaveReason" placeholder="請輸入請假原因"></textarea><button class="btn" onclick="submitLeave()">送出請假申請</button></div>
+  <div class="card"><h3 class="title">希望休 / 排班預選</h3><div class="grid4" id="weekPick"></div><button class="btn soft" style="margin-top:10px" onclick="savePreselect()">確認日期選擇</button><div class="notice" id="preselectNote" style="margin-top:10px">尚未選擇日期</div></div>
+</section>
+<section id="page-clock" class="page">
+  <div class="card"><div class="row"><h3 class="title">打卡記錄</h3><span class="badge">有月曆</span></div><div id="cal-clock" class="calendar-box"></div></div>
+  <div class="card"><h3 class="title">打卡 / 位置回報</h3><div class="grid"><button class="btn" onclick="clockNow('clock_in')">上班打卡</button><button class="btn soft" onclick="clockNow('clock_out')">下班打卡</button></div><div class="notice" id="locText" style="margin-top:10px">公司打卡建議一律附位置，之後可擴充 NFC / QR / GPS 範圍驗證。</div></div>
+  <div class="card"><h3 class="title">補打卡申請</h3><div class="grid"><div><label class="label">日期</label><input id="fixDate" type="date"></div><div><label class="label">類型</label><select id="fixType"><option>上班</option><option>下班</option><option>加班上班</option><option>加班下班</option></select></div></div><div class="grid"><select id="fixHour"></select><select id="fixMinute"></select></div><textarea id="fixReason" placeholder="補打卡原因"></textarea><button class="btn" onclick="submitClockFix()">送出補打卡</button></div>
+</section>
+<section id="page-salary" class="page">
+  <div class="card"><div class="row"><h3 class="title">薪資明細</h3><span class="badge">有月曆</span></div><div id="cal-salary" class="calendar-box"></div></div>
+  <div class="card"><h3 class="title">薪資摘要</h3><div class="grid"><div class="tile"><b>本月預估</b><span>$0</span></div><div class="tile"><b>本月工時</b><span>0h</span></div></div><button class="btn soft" style="margin-top:10px" onclick="toast('薪資單下載會串接後端產生')">下載薪資單</button></div>
+</section>
+<section id="page-upload" class="page">
+  <div class="card"><div class="row"><h3 class="title">資料上傳</h3><span class="badge">有月曆</span></div><div id="cal-upload" class="calendar-box"></div></div>
+  <div class="card"><h3 class="title">上傳類型</h3><div class="type-grid" id="uploadTypeGrid"></div></div>
+  <div class="card"><h3 class="title">上傳資料</h3><input id="uploadType" readonly placeholder="請先選擇上傳類型"><textarea id="uploadNote" placeholder="補充說明"></textarea><div class="grid"><button class="btn soft" onclick="getLocation()">附上位置</button><button class="btn soft" onclick="toggleClaim()">代墊 / 請款表格</button></div><div id="claimBox" class="hidden" style="margin-top:10px"><div class="grid"><input id="claimAmount" type="number" placeholder="金額"><input id="claimItem" placeholder="項目"></div></div><input id="uploadFile" type="file" style="margin-top:10px"><button class="btn" onclick="submitUpload()" style="margin-top:6px">送出資料</button><div class="notice" id="uploadLocText" style="margin-top:10px">尚未附上位置</div></div>
+</section>
+<section id="page-admin" class="page"><div class="card"><h3 class="title">管理入口</h3><div id="adminBox" class="notice"></div></div></section>
+</main>
+<nav class="nav"><button id="nav-schedule" onclick="nav('schedule')"><i class="fa-solid fa-calendar-check"></i><span>請假排班</span></button><button id="nav-clock" onclick="nav('clock')"><i class="fa-solid fa-clock-rotate-left"></i><span>打卡記錄</span></button><button id="nav-home" class="main active" onclick="nav('home')"><i class="fa-solid fa-house"></i><span>員工主頁</span></button><button id="nav-salary" onclick="nav('salary')"><i class="fa-solid fa-money-check-dollar"></i><span>薪資明細</span></button><button id="nav-upload" onclick="nav('upload')"><i class="fa-solid fa-file-arrow-up"></i><span>資料上傳</span></button></nav>
+<script>
+const EDITION="premium";const qs=id=>document.getElementById(id);let calendars={},selectedLeaveType='事假',selectedPreselect=[],currentUploadType='',lastLocation=null;
+function toast(msg){alert(msg)}function today(){return new Date().toISOString().slice(0,10)}
+function nav(id){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));(qs('page-'+id)||qs('page-home')).classList.add('active');const btn=qs('nav-'+id)||qs('nav-home');btn.classList.add('active');if(id==='home')btn.classList.add('main');location.hash=id;setTimeout(()=>Object.values(calendars).forEach(c=>{try{c.render()}catch(e){}}),60)}
+function mapInitial(){const file=location.pathname.split('/').pop().replace('.html','');const h=location.hash.replace('#','');const map={index:'home',employee:'home',employee_home:'home',employee_schedule:'schedule',employee_clock:'clock',employee_salary:'salary',employee_upload:'upload',admin:'admin',admin_home:'admin',admin_review:'admin',admin_schedule:'admin',admin_salary:'admin',admin_people:'admin',admin_settings:'admin',admin_data:'admin',admin_notice:'admin'};return map[file]||map[h]||h||'home'}
+function api(action,payload){payload=payload||{};payload.id=localStorage.getItem('ang_hr_id')||new URLSearchParams(location.search).get('id')||'';payload.token=localStorage.getItem('ang_hr_token')||new URLSearchParams(location.search).get('token')||'';payload.edition=EDITION;if(window.ANG_HR_API&&ANG_HR_API.post)return ANG_HR_API.post(action,payload);console.log('API',action,payload);return Promise.resolve({ok:true,message:'展示模式：已模擬送出'})}
+function initCalendars(){if(typeof FullCalendar==='undefined')return;const events=[{title:'A班 08:00-16:00',start:today(),backgroundColor:'#FF87E0',borderColor:'#FF87E0'},{title:'請假 待審',start:today(),backgroundColor:'#f59e0b',borderColor:'#f59e0b'},{title:'上班 08:02',start:today(),backgroundColor:'#10b981',borderColor:'#10b981'}];[['schedule','cal-schedule'],['clock','cal-clock'],['salary','cal-salary'],['upload','cal-upload']].forEach(p=>{const el=qs(p[1]);if(!el)return;calendars[p[0]]=new FullCalendar.Calendar(el,{initialView:'dayGridMonth',locale:'zh-tw',height:'auto',contentHeight:'auto',events:events});calendars[p[0]].render()})}
+function initLeave(){const types=['事假','病假','特休','生理假','家庭照顧假','婚假','公傷假','公假','安胎假','陪產檢假','陪伴告別假','育嬰留停'];qs('leaveTypeGrid').innerHTML=types.map(t=>'<button class="type-btn" data-v="'+t+'">'+t+'<small>點選假別</small></button>').join('');qs('leaveTypeGrid').onclick=e=>{const b=e.target.closest('button');if(!b)return;selectedLeaveType=b.dataset.v;document.querySelectorAll('#leaveTypeGrid button').forEach(x=>x.classList.remove('active'));b.classList.add('active')};qs('leaveStartDate').value=today();qs('leaveEndDate').value=today()}
+function initWeekPick(){const names=['一','二','三','四','五','六','日'];qs('weekPick').innerHTML=names.map((n,i)=>'<button class="btn soft" data-i="'+i+'">週'+n+'</button>').join('');qs('weekPick').onclick=e=>{const b=e.target.closest('button');if(!b)return;const i=Number(b.dataset.i);if(selectedPreselect.includes(i)){selectedPreselect=selectedPreselect.filter(x=>x!==i);b.classList.remove('active')}else{selectedPreselect.push(i);b.classList.add('active')}qs('preselectNote').textContent=selectedPreselect.length?'已選：'+selectedPreselect.map(i=>'週'+names[i]).join('、'):'尚未選擇日期'}}
+function submitLeave(){api('employeeLeave',{type:selectedLeaveType,startDate:qs('leaveStartDate').value,endDate:qs('leaveEndDate').value,days:qs('leaveDays').value,hours:qs('leaveHours').value,reason:qs('leaveReason').value}).then(r=>toast(r.message||'請假已送出'))}
+function savePreselect(){api('employeePreselect',{weekdays:selectedPreselect}).then(r=>toast(r.message||'希望休已送出'))}
+function fillTime(){const h=qs('fixHour'),m=qs('fixMinute');for(let i=0;i<24;i++)h.innerHTML+='<option value="'+String(i).padStart(2,'0')+'">'+String(i).padStart(2,'0')+' 點</option>';[0,5,10,15,20,25,30,35,40,45,50,55].forEach(v=>m.innerHTML+='<option value="'+String(v).padStart(2,'0')+'">'+String(v).padStart(2,'0')+' 分</option>');qs('fixDate').value=today()}
+function getLocation(){if(!navigator.geolocation){toast('此裝置不支援定位');return}navigator.geolocation.getCurrentPosition(pos=>{lastLocation={lat:pos.coords.latitude,lng:pos.coords.longitude,accuracy:pos.coords.accuracy};const txt='已附位置：'+lastLocation.lat.toFixed(5)+', '+lastLocation.lng.toFixed(5)+'｜誤差 '+Math.round(lastLocation.accuracy)+'m';if(qs('locText'))qs('locText').textContent=txt;if(qs('uploadLocText'))qs('uploadLocText').textContent=txt},err=>toast('無法取得位置：'+err.message),{enableHighAccuracy:true,timeout:10000,maximumAge:0})}
+function clockNow(type){getLocation();setTimeout(()=>api('employeeClock',{clockType:type,location:lastLocation,needLocation:true}).then(r=>toast(r.message||'打卡已送出')),600)}
+function submitClockFix(){api('employeeClockFix',{type:qs('fixType').value,timeVal:qs('fixDate').value+' '+qs('fixHour').value+':'+qs('fixMinute').value,reason:qs('fixReason').value}).then(r=>toast(r.message||'補打卡已送出'))}
+function initUpload(){const full=['醫生證明','收據補件','外勤回報','代墊請款','公費預支','合約文件','其他資料'];qs('uploadTypeGrid').innerHTML=full.map(t=>'<button class="type-btn" data-v="'+t+'">'+t+'<small>點選類型</small></button>').join('');qs('uploadTypeGrid').onclick=e=>{const b=e.target.closest('button');if(!b)return;currentUploadType=b.dataset.v;qs('uploadType').value=currentUploadType;document.querySelectorAll('#uploadTypeGrid button').forEach(x=>x.classList.remove('active'));b.classList.add('active');if(currentUploadType.includes('請款')||currentUploadType.includes('代墊')||currentUploadType.includes('預支'))qs('claimBox').classList.remove('hidden')}}
+function toggleClaim(){qs('claimBox').classList.toggle('hidden')}
+function submitUpload(){api('employeeUpload',{type:currentUploadType,note:qs('uploadNote').value,location:lastLocation,amount:qs('claimAmount').value,item:qs('claimItem').value,hasFile:!!(qs('uploadFile').files||[]).length}).then(r=>toast(r.message||'資料已送出'))}
+function applyEdition(){qs('adminBox').textContent=EDITION==='basic'?'Basic 不開啟管理功能。':EDITION==='plus'?'Plus 開啟審核、排班與薪資試算；Premium 進階系統設定需升級。':'Premium 全功能開啟。';if(EDITION==='basic'){document.querySelectorAll('#page-upload .btn,#page-upload input,#page-upload textarea').forEach(x=>x.classList.add('need-upgrade'))}}
+function boot(){const id=localStorage.getItem('ang_hr_id')||new URLSearchParams(location.search).get('id')||'';if(id)qs('hello').textContent='哈囉，'+id;initCalendars();initLeave();initWeekPick();fillTime();initUpload();applyEdition();nav(mapInitial())}
+window.addEventListener('load',boot);
+</script>
 </body>
 </html>
