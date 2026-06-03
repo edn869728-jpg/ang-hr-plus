@@ -5,7 +5,140 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <title>ANG HR Plus</title>
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js">
+
+/* ===== ANG HR Theme Picker v4.1 JS：容錯角度 / 強制綁定按鈕 / 預覽框不空白 ===== */
+(function(){
+  function $id(id){return document.getElementById(id)}
+  function validAngle(v){
+    var s=String(v||'').trim();
+    var list=['0deg','45deg','90deg','135deg','180deg','225deg','270deg','315deg'];
+    return list.indexOf(s)>-1?s:'135deg';
+  }
+  function normHex(v,fb){
+    v=String(v||'').trim();
+    if(/^#[0-9a-f]{6}$/i.test(v))return v.toUpperCase();
+    if(/^#[0-9a-f]{3}$/i.test(v)){
+      var h=v.slice(1);return '#'+h.split('').map(function(x){return x+x}).join('').toUpperCase();
+    }
+    return fb||'#FF87E0';
+  }
+  function readColors(){
+    var def=['#FF87E0','#CCA4FF','#8089FF','#59DDFF'];
+    try{
+      var raw=JSON.parse(localStorage.getItem('ang_hr_theme_colors')||'[]');
+      if(Array.isArray(raw)&&raw.length>=4)return raw.slice(0,4).map(function(c,i){return normHex(c,def[i])});
+    }catch(e){}
+    return def.slice();
+  }
+  function saveColors(colors){
+    localStorage.setItem('ang_hr_theme_colors',JSON.stringify(colors));
+    localStorage.setItem('ang_theme_colors',JSON.stringify(colors));
+  }
+  function paletteFor(colors,idx){
+    var orders=[[0,1,2,3],[0,2,1,3],[0,3,1,2],[3,2,1,0]];
+    var order=orders[idx]||orders[0];
+    return order.map(function(i){return colors[i]});
+  }
+  function gradient(colors,idx,angle){
+    var p=paletteFor(colors,idx);
+    return 'linear-gradient('+angle+', '+p[0]+' 0%, '+p[1]+' 33%, '+p[2]+' 66%, '+p[3]+' 100%)';
+  }
+  function yiq(hex){
+    hex=normHex(hex,'#FF87E0').replace('#','');
+    var n=parseInt(hex,16),r=(n>>16)&255,g=(n>>8)&255,b=n&255;
+    return ((r*299+g*587+b*114)/1000)>=150?'#111827':'#ffffff';
+  }
+  function shade(hex,amt){
+    hex=normHex(hex,'#FF87E0').replace('#','');
+    var n=parseInt(hex,16),r=Math.max(0,Math.min(255,((n>>16)&255)+amt)),g=Math.max(0,Math.min(255,((n>>8)&255)+amt)),b=Math.max(0,Math.min(255,(n&255)+amt));
+    return '#'+((r<<16)|(g<<8)|b).toString(16).padStart(6,'0').toUpperCase();
+  }
+  function names(idx){return ['順向','交錯','分散','反向'][idx]||'順向'}
+  function angleLabel(a){return {'0deg':'左 → 右','45deg':'左下 → 右上','90deg':'上 → 下','135deg':'左上 → 右下','180deg':'右 → 左','225deg':'右上 → 左下','270deg':'下 → 上','315deg':'右下 → 左上'}[a]||'左上 → 右下'}
+  function applyPageAccentSafe(page,colors){
+    page=String(page||document.body.dataset.page||'home');
+    var idx={schedule:0,clock:1,salary:2,upload:3}[page];
+    if(idx==null)idx=0;
+    var c=colors[idx]||colors[0];
+    var h=c.replace('#',''),n=parseInt(h,16),rgb=[(n>>16)&255,(n>>8)&255,n&255].join(',');
+    document.documentElement.style.setProperty('--page-color',c);
+    document.documentElement.style.setProperty('--page-rgb',rgb);
+    document.documentElement.style.setProperty('--page-soft','rgba('+rgb+',.14)');
+  }
+  function renderThemePicker(){
+    var colors=readColors();
+    var root=document.documentElement;
+    var angle=validAngle(localStorage.getItem('ang_hr_theme_angle')||window.currentThemeAngle||'135deg');
+    var variation=Number(localStorage.getItem('ang_hr_theme_variation')||window.currentVariation||0);
+    if(!isFinite(variation)||variation<0||variation>3)variation=0;
+    window.currentThemeAngle=angle;
+    window.currentVariation=variation;
+    var display=paletteFor(colors,variation);
+    root.style.setProperty('--emp-angle',angle);
+    root.style.setProperty('--c1',display[0]);
+    root.style.setProperty('--c2',display[1]);
+    root.style.setProperty('--c3',display[2]);
+    root.style.setProperty('--c4',display[3]);
+    root.style.setProperty('--deep',shade(display[0],-70));
+    root.style.setProperty('--grad',gradient(colors,variation,angle));
+    root.style.setProperty('--emp-gradient',gradient(colors,variation,angle));
+    root.style.setProperty('--text-on-emp',yiq(display[0]));
+    ['themeColor1','themeColor2','themeColor3','themeColor4'].forEach(function(id,i){var el=$id(id);if(el)el.value=colors[i];});
+    var badge=$id('themeNameBadge');if(badge)badge.textContent='自訂四色｜'+names(variation);
+    var angleBox=$id('themeAngleDisplay');if(angleBox)angleBox.innerHTML='<span>'+angleLabel(angle)+'</span>';
+    var btns=document.querySelectorAll('#themePreviewRow .theme-color-btn');
+    btns.forEach(function(btn,i){
+      btn.style.background=gradient(colors,i,angle);
+      btn.setAttribute('data-label',names(i));
+      btn.style.setProperty('--preview-label-color',yiq(paletteFor(colors,i)[0]));
+      btn.classList.toggle('active',i===variation);
+    });
+    applyPageAccentSafe((document.body&&document.body.dataset&&document.body.dataset.page)||'home',colors);
+    try{if(typeof refreshCalendars==='function')refreshCalendars()}catch(e){}
+  }
+  function bindThemePicker(){
+    var btns=document.querySelectorAll('#themePreviewRow .theme-color-btn');
+    btns.forEach(function(btn,i){
+      btn.onclick=function(ev){if(ev)ev.preventDefault();localStorage.setItem('ang_hr_theme_variation',String(i));renderThemePicker();return false;};
+    });
+    ['themeColor1','themeColor2','themeColor3','themeColor4'].forEach(function(id,i){
+      var el=$id(id);if(!el)return;
+      el.oninput=function(){var colors=readColors();colors[i]=normHex(el.value,colors[i]);saveColors(colors);renderThemePicker();};
+      el.onchange=el.oninput;
+    });
+    var angleBtns=document.querySelectorAll('.theme-angle-btn');
+    if(angleBtns[0])angleBtns[0].onclick=function(ev){if(ev)ev.preventDefault();rotateSafe(-1);return false;};
+    if(angleBtns[1])angleBtns[1].onclick=function(ev){if(ev)ev.preventDefault();rotateSafe(1);return false;};
+    var resetBtns=document.querySelectorAll('.theme-custom-row button');
+    resetBtns.forEach(function(btn){btn.onclick=function(ev){if(ev)ev.preventDefault();resetSafe();return false;};});
+  }
+  function rotateSafe(step){
+    var list=['0deg','45deg','90deg','135deg','180deg','225deg','270deg','315deg'];
+    var a=validAngle(localStorage.getItem('ang_hr_theme_angle')||window.currentThemeAngle||'135deg');
+    var idx=list.indexOf(a);if(idx<0)idx=3;
+    idx=(idx+Number(step||0)+list.length)%list.length;
+    localStorage.setItem('ang_hr_theme_angle',list[idx]);
+    renderThemePicker();
+  }
+  function resetSafe(){
+    var def=['#FF87E0','#CCA4FF','#8089FF','#59DDFF'];
+    saveColors(def);localStorage.setItem('ang_hr_theme_angle','135deg');localStorage.setItem('ang_hr_theme_variation','0');
+    renderThemePicker();
+  }
+  window.applyVariation=function(index){localStorage.setItem('ang_hr_theme_variation',String(Math.max(0,Math.min(Number(index)||0,3))));renderThemePicker();};
+  window.rotateThemeAngle=function(step){rotateSafe(step);};
+  window.updateThemeColor=function(index,value){var colors=readColors();index=Math.max(0,Math.min(Number(index)||0,3));colors[index]=normHex(value,colors[index]);saveColors(colors);renderThemePicker();};
+  window.resetThemePreset=function(){resetSafe();};
+  window.saveThemeColors=function(){renderThemePicker();};
+  window.resetThemeColors=function(){resetSafe();};
+  window.applyThemeColors=function(colors){if(Array.isArray(colors)&&colors.length>=4)saveColors(colors.slice(0,4).map(function(c,i){return normHex(c,readColors()[i])}));renderThemePicker();};
+  window.ANG_HR_RENDER_THEME_PICKER=renderThemePicker;
+  document.addEventListener('DOMContentLoaded',function(){bindThemePicker();renderThemePicker();setTimeout(renderThemePicker,120);});
+  window.addEventListener('load',function(){bindThemePicker();renderThemePicker();setTimeout(renderThemePicker,300);});
+})();
+
+</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 <style>
 :root{--bg:#f5f7fb;--card:#fff;--text:#111827;--muted:#6b7280;--soft:#f3f4f6;--c1:#FF87E0;--c2:#CCA4FF;--c3:#8089FF;--c4:#59DDFF;--deep:#8F4C7E;--grad:linear-gradient(135deg,var(--c1),var(--c2),var(--c3),var(--c4));--ok:#10b981;--warn:#f59e0b;--danger:#ef4444}
@@ -63,6 +196,23 @@ html,body{font-family:"Arial Rounded MT Bold","PingFang TC","Microsoft JhengHei"
 .theme-custom-row{display:block;margin-top:10px}
 .message-review-note{margin-top:8px;padding:9px 11px;border-radius:14px;background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;font-size:12px;font-weight:950;line-height:1.45}
 @media(max-width:390px){.theme-color-btn{height:54px;border-radius:16px}.theme-color-btn::after{font-size:9px}.theme-angle-row{grid-template-columns:50px minmax(0,1fr) 50px}.theme-angle-btn,.theme-angle-display{height:50px;border-radius:16px}.theme-custom-grid{gap:6px}.theme-custom-item input[type="color"]{height:48px}}
+
+
+
+/* ===== ANG HR Theme Picker v4.1：修正預覽框空白與按鈕失效 ===== */
+#themePreviewRow{position:relative;z-index:2}
+#themePreviewRow .theme-color-btn{pointer-events:auto!important;touch-action:manipulation!important;background-size:100% 100%!important;overflow:hidden!important;border:1px solid rgba(255,255,255,.72)!important}
+#themePreviewRow .theme-color-btn:nth-child(1){background:linear-gradient(var(--emp-angle,135deg),var(--c1,#FF87E0) 0%,var(--c2,#CCA4FF) 33%,var(--c3,#8089FF) 66%,var(--c4,#59DDFF) 100%)!important}
+#themePreviewRow .theme-color-btn:nth-child(2){background:linear-gradient(var(--emp-angle,135deg),var(--c1,#FF87E0) 0%,var(--c3,#8089FF) 33%,var(--c2,#CCA4FF) 66%,var(--c4,#59DDFF) 100%)!important}
+#themePreviewRow .theme-color-btn:nth-child(3){background:linear-gradient(var(--emp-angle,135deg),var(--c1,#FF87E0) 0%,var(--c4,#59DDFF) 33%,var(--c2,#CCA4FF) 66%,var(--c3,#8089FF) 100%)!important}
+#themePreviewRow .theme-color-btn:nth-child(4){background:linear-gradient(var(--emp-angle,135deg),var(--c4,#59DDFF) 0%,var(--c3,#8089FF) 33%,var(--c2,#CCA4FF) 66%,var(--c1,#FF87E0) 100%)!important}
+#themePreviewRow .theme-color-btn.active{outline:4px solid #fff!important;box-shadow:0 0 0 4px var(--c1,#FF87E0),0 12px 24px rgba(17,24,39,.20)!important}
+.theme-angle-btn,.theme-custom-item input[type="color"],.theme-custom-row button,.message-form button,.nav button,.btn,.type-btn{pointer-events:auto!important;touch-action:manipulation!important}
+.theme-angle-display{background:linear-gradient(var(--emp-angle,135deg),var(--c1,#FF87E0) 0%,var(--c2,#CCA4FF) 33%,var(--c3,#8089FF) 66%,var(--c4,#59DDFF) 100%)!important}
+.theme-custom-item input[type="color"]{appearance:auto!important;-webkit-appearance:auto!important;opacity:1!important;display:block!important;position:relative!important;z-index:2!important}
+.theme-picker-card{position:relative!important;z-index:1!important;overflow:visible!important}
+.theme-picker-card *{user-select:none}
+.theme-picker-card textarea,.theme-picker-card input{user-select:auto}
 
 </style>
 </head>
@@ -192,6 +342,139 @@ function submitUpload(){api('employeeUpload',{type:currentUploadType,note:qs('up
 function applyEdition(){qs('adminBox').textContent=EDITION==='basic'?'Basic 不開啟管理功能。':EDITION==='plus'?'Plus 開啟審核、排班與薪資試算；Premium 進階系統設定需升級。':'Premium 全功能開啟。';if(EDITION==='basic'){document.querySelectorAll('#page-upload .btn,#page-upload input,#page-upload textarea').forEach(x=>x.classList.add('need-upgrade'))}}
 function boot(){const id=localStorage.getItem('ang_hr_id')||new URLSearchParams(location.search).get('id')||'';if(id)qs('hello').textContent='哈囉，'+id;applyThemeColors(readThemeColors());renderHomePanels(readCalendarSource_());initCalendars();loadEmployeeCalendarData();initLeave();initWeekPick();fillTime();initUpload();applyEdition();nav(mapInitial())}
 window.addEventListener('load',boot);
+
+
+/* ===== ANG HR Theme Picker v4.1 JS：容錯角度 / 強制綁定按鈕 / 預覽框不空白 ===== */
+(function(){
+  function $id(id){return document.getElementById(id)}
+  function validAngle(v){
+    var s=String(v||'').trim();
+    var list=['0deg','45deg','90deg','135deg','180deg','225deg','270deg','315deg'];
+    return list.indexOf(s)>-1?s:'135deg';
+  }
+  function normHex(v,fb){
+    v=String(v||'').trim();
+    if(/^#[0-9a-f]{6}$/i.test(v))return v.toUpperCase();
+    if(/^#[0-9a-f]{3}$/i.test(v)){
+      var h=v.slice(1);return '#'+h.split('').map(function(x){return x+x}).join('').toUpperCase();
+    }
+    return fb||'#FF87E0';
+  }
+  function readColors(){
+    var def=['#FF87E0','#CCA4FF','#8089FF','#59DDFF'];
+    try{
+      var raw=JSON.parse(localStorage.getItem('ang_hr_theme_colors')||'[]');
+      if(Array.isArray(raw)&&raw.length>=4)return raw.slice(0,4).map(function(c,i){return normHex(c,def[i])});
+    }catch(e){}
+    return def.slice();
+  }
+  function saveColors(colors){
+    localStorage.setItem('ang_hr_theme_colors',JSON.stringify(colors));
+    localStorage.setItem('ang_theme_colors',JSON.stringify(colors));
+  }
+  function paletteFor(colors,idx){
+    var orders=[[0,1,2,3],[0,2,1,3],[0,3,1,2],[3,2,1,0]];
+    var order=orders[idx]||orders[0];
+    return order.map(function(i){return colors[i]});
+  }
+  function gradient(colors,idx,angle){
+    var p=paletteFor(colors,idx);
+    return 'linear-gradient('+angle+', '+p[0]+' 0%, '+p[1]+' 33%, '+p[2]+' 66%, '+p[3]+' 100%)';
+  }
+  function yiq(hex){
+    hex=normHex(hex,'#FF87E0').replace('#','');
+    var n=parseInt(hex,16),r=(n>>16)&255,g=(n>>8)&255,b=n&255;
+    return ((r*299+g*587+b*114)/1000)>=150?'#111827':'#ffffff';
+  }
+  function shade(hex,amt){
+    hex=normHex(hex,'#FF87E0').replace('#','');
+    var n=parseInt(hex,16),r=Math.max(0,Math.min(255,((n>>16)&255)+amt)),g=Math.max(0,Math.min(255,((n>>8)&255)+amt)),b=Math.max(0,Math.min(255,(n&255)+amt));
+    return '#'+((r<<16)|(g<<8)|b).toString(16).padStart(6,'0').toUpperCase();
+  }
+  function names(idx){return ['順向','交錯','分散','反向'][idx]||'順向'}
+  function angleLabel(a){return {'0deg':'左 → 右','45deg':'左下 → 右上','90deg':'上 → 下','135deg':'左上 → 右下','180deg':'右 → 左','225deg':'右上 → 左下','270deg':'下 → 上','315deg':'右下 → 左上'}[a]||'左上 → 右下'}
+  function applyPageAccentSafe(page,colors){
+    page=String(page||document.body.dataset.page||'home');
+    var idx={schedule:0,clock:1,salary:2,upload:3}[page];
+    if(idx==null)idx=0;
+    var c=colors[idx]||colors[0];
+    var h=c.replace('#',''),n=parseInt(h,16),rgb=[(n>>16)&255,(n>>8)&255,n&255].join(',');
+    document.documentElement.style.setProperty('--page-color',c);
+    document.documentElement.style.setProperty('--page-rgb',rgb);
+    document.documentElement.style.setProperty('--page-soft','rgba('+rgb+',.14)');
+  }
+  function renderThemePicker(){
+    var colors=readColors();
+    var root=document.documentElement;
+    var angle=validAngle(localStorage.getItem('ang_hr_theme_angle')||window.currentThemeAngle||'135deg');
+    var variation=Number(localStorage.getItem('ang_hr_theme_variation')||window.currentVariation||0);
+    if(!isFinite(variation)||variation<0||variation>3)variation=0;
+    window.currentThemeAngle=angle;
+    window.currentVariation=variation;
+    var display=paletteFor(colors,variation);
+    root.style.setProperty('--emp-angle',angle);
+    root.style.setProperty('--c1',display[0]);
+    root.style.setProperty('--c2',display[1]);
+    root.style.setProperty('--c3',display[2]);
+    root.style.setProperty('--c4',display[3]);
+    root.style.setProperty('--deep',shade(display[0],-70));
+    root.style.setProperty('--grad',gradient(colors,variation,angle));
+    root.style.setProperty('--emp-gradient',gradient(colors,variation,angle));
+    root.style.setProperty('--text-on-emp',yiq(display[0]));
+    ['themeColor1','themeColor2','themeColor3','themeColor4'].forEach(function(id,i){var el=$id(id);if(el)el.value=colors[i];});
+    var badge=$id('themeNameBadge');if(badge)badge.textContent='自訂四色｜'+names(variation);
+    var angleBox=$id('themeAngleDisplay');if(angleBox)angleBox.innerHTML='<span>'+angleLabel(angle)+'</span>';
+    var btns=document.querySelectorAll('#themePreviewRow .theme-color-btn');
+    btns.forEach(function(btn,i){
+      btn.style.background=gradient(colors,i,angle);
+      btn.setAttribute('data-label',names(i));
+      btn.style.setProperty('--preview-label-color',yiq(paletteFor(colors,i)[0]));
+      btn.classList.toggle('active',i===variation);
+    });
+    applyPageAccentSafe((document.body&&document.body.dataset&&document.body.dataset.page)||'home',colors);
+    try{if(typeof refreshCalendars==='function')refreshCalendars()}catch(e){}
+  }
+  function bindThemePicker(){
+    var btns=document.querySelectorAll('#themePreviewRow .theme-color-btn');
+    btns.forEach(function(btn,i){
+      btn.onclick=function(ev){if(ev)ev.preventDefault();localStorage.setItem('ang_hr_theme_variation',String(i));renderThemePicker();return false;};
+    });
+    ['themeColor1','themeColor2','themeColor3','themeColor4'].forEach(function(id,i){
+      var el=$id(id);if(!el)return;
+      el.oninput=function(){var colors=readColors();colors[i]=normHex(el.value,colors[i]);saveColors(colors);renderThemePicker();};
+      el.onchange=el.oninput;
+    });
+    var angleBtns=document.querySelectorAll('.theme-angle-btn');
+    if(angleBtns[0])angleBtns[0].onclick=function(ev){if(ev)ev.preventDefault();rotateSafe(-1);return false;};
+    if(angleBtns[1])angleBtns[1].onclick=function(ev){if(ev)ev.preventDefault();rotateSafe(1);return false;};
+    var resetBtns=document.querySelectorAll('.theme-custom-row button');
+    resetBtns.forEach(function(btn){btn.onclick=function(ev){if(ev)ev.preventDefault();resetSafe();return false;};});
+  }
+  function rotateSafe(step){
+    var list=['0deg','45deg','90deg','135deg','180deg','225deg','270deg','315deg'];
+    var a=validAngle(localStorage.getItem('ang_hr_theme_angle')||window.currentThemeAngle||'135deg');
+    var idx=list.indexOf(a);if(idx<0)idx=3;
+    idx=(idx+Number(step||0)+list.length)%list.length;
+    localStorage.setItem('ang_hr_theme_angle',list[idx]);
+    renderThemePicker();
+  }
+  function resetSafe(){
+    var def=['#FF87E0','#CCA4FF','#8089FF','#59DDFF'];
+    saveColors(def);localStorage.setItem('ang_hr_theme_angle','135deg');localStorage.setItem('ang_hr_theme_variation','0');
+    renderThemePicker();
+  }
+  window.applyVariation=function(index){localStorage.setItem('ang_hr_theme_variation',String(Math.max(0,Math.min(Number(index)||0,3))));renderThemePicker();};
+  window.rotateThemeAngle=function(step){rotateSafe(step);};
+  window.updateThemeColor=function(index,value){var colors=readColors();index=Math.max(0,Math.min(Number(index)||0,3));colors[index]=normHex(value,colors[index]);saveColors(colors);renderThemePicker();};
+  window.resetThemePreset=function(){resetSafe();};
+  window.saveThemeColors=function(){renderThemePicker();};
+  window.resetThemeColors=function(){resetSafe();};
+  window.applyThemeColors=function(colors){if(Array.isArray(colors)&&colors.length>=4)saveColors(colors.slice(0,4).map(function(c,i){return normHex(c,readColors()[i])}));renderThemePicker();};
+  window.ANG_HR_RENDER_THEME_PICKER=renderThemePicker;
+  document.addEventListener('DOMContentLoaded',function(){bindThemePicker();renderThemePicker();setTimeout(renderThemePicker,120);});
+  window.addEventListener('load',function(){bindThemePicker();renderThemePicker();setTimeout(renderThemePicker,300);});
+})();
+
 </script>
 </body>
 </html>
